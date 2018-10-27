@@ -1,0 +1,62 @@
+.navbar-bg {
+  background-color: #1d2731;
+}
+
+.left-section, .right-section {
+  padding-right: 2rem !important;
+  padding-left: 2rem !important;
+}
+
+.session-button {
+  width: 70px;
+  height: 70px;
+  margin: 3px;
+}
+
+.session-button-img {
+  width: 30px;
+  max-height: 35px;
+}
+
+.action-button {
+  max-width: 20px;
+}
+
+.time {
+  margin: 1rem 1rem 2rem 1rem;
+  text-align: center;
+  font-size: 4rem;
+}
+
+.summary {
+  border-top: 1px solid #0b3c5d;
+  border-bottom: 1px solid #0b3c5d;
+  padding: 0.6rem;
+}
+
+.list-group-item.col, .list-group-item.action-buttons {
+  opacity: 0.7 !important;
+}
+
+.list-group-item:hover {
+  background-color: rgba(50, 139, 195, 0.1) !important;
+}
+
+.list-group-item.active {
+  opacity: 1 !important;
+}
+
+@keyframes blink {
+  50% {
+      opacity: 0.0;
+  }
+  }
+  @-webkit-keyframes blink {
+  50% {
+      opacity: 0.0;
+  }
+}
+.blink {
+  animation: blink 2s ease-in-out 0s infinite;
+  -webkit-animation: blink 2s ease-in-out 0s infinite;
+}

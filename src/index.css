@@ -5,25 +5,76 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #EFF5DC;
+  color: #1d2731;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.w-100 {
+  width: 100%;
 }
 
 .clickable {
   cursor: pointer;
 }
 
-.text-red {
-  color: #B81F0B;
+.text-center {
+  text-align: center;
 }
 
-.task-current {
-  color: blue;
+.text-right {
+  text-align: right;
 }
 
-.blink {
-  text-decoration: underline;
+.text-bold {
+  font-weight: bold;
+}
+
+.text-light {
+  color: #EFF5DC;
+}
+
+.btn {
+  box-shadow: none !important;
+}
+
+.btn-primary {
+  color: #EFF5DC !important;
+  background-color: #0b3c5d !important;
+  border-color: #0b3c5d !important;
+}
+
+.btn-outline-primary {
+  color: #EFF5DC !important;
+  border-color: #0b3c5d !important;
+}
+
+.list-group-item.active {
+  border: 1px solid #0b3c5d !important;
+}
+
+.list-group-item.active {
+  color: #EFF5DC !important;
+  background-color: #328bc3 !important;
+  border-color: #328bc3 !important;
+}
+
+.badge-primary {
+  color: #EFF5DC !important;
+  background-color: #0b3c5d !important;
+}
+
+.badge-secondary {
+  background-color: rgba(30, 30, 30, 0.5) !important;
+  color: rgba(239, 245, 220, 0.8) !important;
+}
+
+.form-control {
+  color: #0b3c5d !important;
+  background-color: #EFF5DC !important;
+}
+
+.form-control:focus {
+  color: #0b3c5d !important;
+  background-color: #EFF5DC !important;
+  border-color: #0b3c5d !important;
+  box-shadow: none !important;
 }

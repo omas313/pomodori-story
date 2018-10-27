@@ -7,7 +7,10 @@ function getTimeString({ min, sec }) {
 }
 
 const Time = ({ time, paused, onToggle }) => (
-  <h3 className={'clickable' + (paused ? ' blink' : '')} onClick={onToggle}>
+  <h3
+    className={'time clickable' + (paused ? ' blink' : '')}
+    onClick={onToggle}
+  >
     {getTimeString(time)}
   </h3>
 );
