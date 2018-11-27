@@ -28,7 +28,7 @@ class Task extends Component {
       <li className={classes}>
         <div className="row">
           <div
-            className="col w-100 clickable"
+            className="col w-100 clickable task-name"
             onClick={() => onSetActiveTask(task)}
           >
             {editing ? (

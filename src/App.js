@@ -186,7 +186,7 @@ class App extends Component {
         <Navbar title="Pomodori Story" />
         <div className="container">
           <div className="row">
-            <div className="col left-section">
+            <div className="col-md-6 col-sm-12 order-2 order-md-1 left-section">
               <TaskEntry onSubmit={this.handleNewTask} />
               <Tasks
                 tasks={tasks}
@@ -197,7 +197,7 @@ class App extends Component {
                 onDelete={this.handleDeleteTask}
               />
             </div>
-            <div className="col-5 right-section">
+            <div className="col-md-6 col-sm-12 order-1 order-md-2 right-section">
               <SessionButtons
                 onPomodoroClick={() => this.handleSetSession(POMODORO)}
                 onShortBreakClick={() => this.handleSetSession(SHORT_BREAK)}

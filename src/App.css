@@ -1,5 +1,5 @@
 .navbar-bg {
-  background-color: #1d2731;
+  background-color: #ff7700;
 }
 
 .left-section, .right-section {
@@ -26,12 +26,17 @@
   margin: 1rem 1rem 2rem 1rem;
   text-align: center;
   font-size: 4rem;
+  color: #4e1a00;
 }
 
 .summary {
-  border-top: 1px solid #0b3c5d;
-  border-bottom: 1px solid #0b3c5d;
+  border-top: 1px solid #ff7700;
+  border-bottom: 1px solid #ff7700;
   padding: 0.6rem;
+}
+
+.task-name {
+  color: #4e1a00;
 }
 
 .list-group-item.col, .list-group-item.action-buttons {
@@ -39,7 +44,7 @@
 }
 
 .list-group-item:hover {
-  background-color: rgba(50, 139, 195, 0.1) !important;
+  background-color: #ffecce !important;
 }
 
 .list-group-item.active {
@@ -59,4 +64,20 @@
 .blink {
   animation: blink 2s ease-in-out 0s infinite;
   -webkit-animation: blink 2s ease-in-out 0s infinite;
+}
+
+@media(max-width: 767.98px) {
+  .time {
+    font-size: 5rem;
+  }
+}
+
+@media(max-width: 991.98px) {
+  .time {
+    font-size: 3rem;
+  }
+
+  .right-section, .left-section {
+    margin: 1rem auto;
+  }
 }

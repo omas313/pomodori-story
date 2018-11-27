@@ -4,8 +4,8 @@ body {
   font-family: Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #EFF5DC;
-  color: #1d2731;
+  background: #fffaf0 !important;
+  color: #4e1a00;
 }
 
 .w-100 {
@@ -38,28 +38,36 @@ body {
 
 .btn-primary {
   color: #EFF5DC !important;
-  background-color: #0b3c5d !important;
-  border-color: #0b3c5d !important;
+  background-color: #ff7700 !important;
+  border-color: #ff7700 !important;
 }
 
 .btn-outline-primary {
   color: #EFF5DC !important;
-  border-color: #0b3c5d !important;
+  border-color: #4e1a00 !important;
+}
+.btn-outline-primary:hover, .btn-outline-primary:active {
+  background-color: #ffbe59 !important;
+}
+
+.list-group-item {
+  background-color: #fffaf0 !important;
+  border-color: #ffdaa0 !important;
 }
 
 .list-group-item.active {
-  border: 1px solid #0b3c5d !important;
+  border: 1px solid #ffa3155e !important;
 }
 
 .list-group-item.active {
   color: #EFF5DC !important;
-  background-color: #328bc3 !important;
-  border-color: #328bc3 !important;
+  background-color: #ffa3155e !important;
+  border-color: #ffa3155e !important;
 }
 
 .badge-primary {
   color: #EFF5DC !important;
-  background-color: #0b3c5d !important;
+  background-color: #4e1a00 !important;
 }
 
 .badge-secondary {
@@ -68,13 +76,14 @@ body {
 }
 
 .form-control {
-  color: #0b3c5d !important;
-  background-color: #EFF5DC !important;
+  color: #4e1a00 !important;
+  background-color: #fff6ee !important;
+  border: 1px solid #ffdda9 !important;
 }
 
 .form-control:focus {
-  color: #0b3c5d !important;
-  background-color: #EFF5DC !important;
-  border-color: #0b3c5d !important;
+  color: #4e1a00 !important;
+  background-color: #fff6ee !important;
+  border-color: #4e1a00 !important;
   box-shadow: none !important;
 }
