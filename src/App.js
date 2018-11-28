@@ -5,6 +5,7 @@ import Tasks from './components/tasks';
 import TaskEntry from './components/taskEntry';
 import Summary from './components/summary';
 import Navbar from './components/navbar';
+import taskService from './services/taskService';
 import './App.css';
 
 const Session = {
@@ -25,42 +26,95 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const tasks = [
+    this.initTasks();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { tasks } = this.state;
+    if (prevState.tasks !== tasks) taskService.save(tasks);
+  }
+
+  initTasks() {
+    const tasks = taskService.getAll() || [
       { _id: 1, name: 'Untitled task', count: 0 }
-      // { _id: 2, name: 'Untitled task', count: 0 },
-      // { _id: 3, name: 'Untitled task', count: 0 },
-      // { _id: 4, name: 'Untitled task', count: 0 }
     ];
     this.setState({
       tasks,
-      currentTask: tasks[0]
+      currentTask: tasks[0],
+      pomodoroCount: tasks.reduce((acc, curr) => acc + curr.count, 0)
     });
   }
 
-  stopTimer = () => {
+  stopTimer() {
     clearInterval(this.state.timer);
     this.setState({ timer: null, playing: false });
-  };
+  }
 
-  startTimer = () => {
+  startTimer() {
     const { playing } = this.state;
 
     if (playing) this.stopTimer();
 
     this.setState({
-      timer: setInterval(this.onSecondPassed, 1000),
+      timer: setInterval(this.handleSecondPassed, 1000),
       playing: true
     });
-  };
+  }
 
-  handleTimerToggle = () => {
-    const { playing } = this.state;
+  onSessionEnd() {
+    const { currentSession } = this.state;
 
-    if (playing) this.stopTimer();
-    else this.startTimer();
-  };
+    this.stopTimer();
 
-  onSecondPassed = () => {
+    if (currentSession === Session.POMODORO) this.onPomodoroFinished();
+    else this.handleSetSession(Session.POMODORO);
+  }
+
+  onPomodoroFinished() {
+    const { pomodoroCount, tasks } = this.state;
+
+    if (tasks.length === 0) this.handleNewTask('Untitled task', 1);
+    else this.incrementTaskCounter();
+    const newPomodoroCount = pomodoroCount + 1;
+
+    this.setState({ pomodoroCount: newPomodoroCount });
+
+    const longBreakTime = newPomodoroCount > 0 && newPomodoroCount % 4 === 0;
+    this.handleSetSession(
+      longBreakTime ? Session.LONG_BREAK : Session.SHORT_BREAK
+    );
+  }
+
+  incrementTaskCounter() {
+    const tasks = [...this.state.tasks];
+    const index = tasks.indexOf(this.state.currentTask);
+    const task = { ...tasks[index] };
+    task.count++;
+    tasks[index] = task;
+    this.setState({ tasks, currentTask: tasks[index] });
+  }
+
+  // hacks for debugging
+  runCommand(command) {
+    switch (command) {
+      case 'es':
+        this.onSessionEnd();
+        break;
+      case 'po':
+        this.handleSetSession(Session.POMODORO);
+        break;
+      case 'sb':
+        this.handleSetSession(Session.SHORT_BREAK);
+        break;
+      case 'lb':
+        this.handleSetSession(Session.LONG_BREAK);
+        break;
+      default:
+        console.log('Unknown command: ' + command);
+    }
+  }
+
+  handleSecondPassed = () => {
     const { time } = this.state;
     const nextTime = { ...time };
 
@@ -76,28 +130,11 @@ class App extends Component {
     this.setState({ time: nextTime });
   };
 
-  onSessionEnd = () => {
-    const { currentSession } = this.state;
+  handleTimerToggle = () => {
+    const { playing } = this.state;
 
-    this.stopTimer();
-
-    if (currentSession === Session.POMODORO) this.onPomodoroFinished();
-    else this.handleSetSession(Session.POMODORO);
-  };
-
-  onPomodoroFinished = () => {
-    const { pomodoroCount, tasks } = this.state;
-
-    if (tasks.length === 0) this.handleNewTask('Untitled task', 1);
-    else this.incrementTaskCounter();
-    const newPomodoroCount = pomodoroCount + 1;
-
-    this.setState({ pomodoroCount: newPomodoroCount });
-
-    const longBreakTime = newPomodoroCount > 0 && newPomodoroCount % 4 === 0;
-    this.handleSetSession(
-      longBreakTime ? Session.LONG_BREAK : Session.SHORT_BREAK
-    );
+    if (playing) this.stopTimer();
+    else this.startTimer();
   };
 
   handleSetSession = session => {
@@ -134,9 +171,14 @@ class App extends Component {
     const index = tasks.indexOf(task);
     tasks.splice(index, 1);
 
-    const updates = { tasks };
+    const updates = {
+      tasks,
+      pomodoroCount:
+        tasks.length === 0
+          ? 0
+          : tasks.reduce((acc, curr) => acc + curr.count, 0)
+    };
     if (task._id === this.state.currentTask._id) updates.currentTask = tasks[0];
-
     this.setState(updates);
   };
 
@@ -154,35 +196,6 @@ class App extends Component {
       if (task._id === currentTask._id) this.setState({ currentTask: task });
     });
   };
-
-  incrementTaskCounter() {
-    const tasks = [...this.state.tasks];
-    const index = tasks.indexOf(this.state.currentTask);
-    const task = { ...tasks[index] };
-    task.count++;
-    tasks[index] = task;
-    this.setState({ tasks, currentTask: tasks[index] });
-  }
-
-  // hacks for debugging
-  runCommand(command) {
-    switch (command) {
-      case 'es':
-        this.onSessionEnd();
-        break;
-      case 'po':
-        this.handleSetSession(Session.POMODORO);
-        break;
-      case 'sb':
-        this.handleSetSession(Session.SHORT_BREAK);
-        break;
-      case 'lb':
-        this.handleSetSession(Session.LONG_BREAK);
-        break;
-      default:
-        console.log('Unknown command: ' + command);
-    }
-  }
 
   render() {
     const {
