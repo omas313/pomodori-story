@@ -46,6 +46,8 @@ section {
   border-top: 1px solid #ff7700;
   border-bottom: 1px solid #ff7700;
   padding: 0.6rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .task-name {
