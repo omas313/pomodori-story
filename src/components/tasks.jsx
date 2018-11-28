@@ -10,7 +10,7 @@ const Tasks = ({ currentTask, tasks, onSetActiveTask, onDelete, onEdit }) => {
           <Task
             key={task._id}
             task={task}
-            active={currentTask._id === task._id}
+            active={currentTask && currentTask._id === task._id}
             onSetActiveTask={onSetActiveTask}
             onDelete={onDelete}
             onEdit={onEdit}
