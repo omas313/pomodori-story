@@ -1,14 +1,19 @@
 import React from 'react';
 
 const SessionButtons = ({
+  session,
+  currentSession,
   onPomodoroClick,
   onShortBreakClick,
   onLongBreakClick
 }) => {
+  const classes = 'btn btn-primary session-button';
   return (
     <div className="text-center">
       <button
-        className="btn btn-primary session-button"
+        className={
+          classes + (currentSession === session.POMODORO ? ' active' : '')
+        }
         onClick={onPomodoroClick}
       >
         <img
@@ -18,7 +23,9 @@ const SessionButtons = ({
         />
       </button>
       <button
-        className="btn btn-primary session-button"
+        className={
+          classes + (currentSession === session.SHORT_BREAK ? ' active' : '')
+        }
         onClick={onShortBreakClick}
       >
         <img
@@ -28,7 +35,9 @@ const SessionButtons = ({
         />
       </button>
       <button
-        className="btn btn-primary session-button"
+        className={
+          classes + (currentSession === session.LONG_BREAK ? ' active' : '')
+        }
         onClick={onLongBreakClick}
       >
         <img

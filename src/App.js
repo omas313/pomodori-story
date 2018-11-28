@@ -203,7 +203,7 @@ class App extends Component {
         <Navbar title="Pomodori Story" />
         <div className="container">
           <div className="row">
-            <div className="col-md-6 col-sm-12 order-2 order-md-1 left-section">
+            <section className="col-md-6 col-sm-12 order-2 order-md-1">
               <TaskEntry onSubmit={this.handleNewTask} />
               <Tasks
                 tasks={tasks}
@@ -213,9 +213,11 @@ class App extends Component {
                 onEdit={this.handleEditTask}
                 onDelete={this.handleDeleteTask}
               />
-            </div>
-            <div className="col-md-6 col-sm-12 order-1 order-md-2 right-section">
+            </section>
+            <section className="col-md-6 col-sm-12 order-1 order-md-2">
               <SessionButtons
+                currentSession={currentSession}
+                session={Session}
                 onPomodoroClick={() => this.handleSetSession(Session.POMODORO)}
                 onShortBreakClick={() =>
                   this.handleSetSession(Session.SHORT_BREAK)
@@ -230,7 +232,7 @@ class App extends Component {
                 onToggle={this.handleTimerToggle}
               />
               <Summary taskCount={tasks.length} pomodoroCount={pomodoroCount} />
-            </div>
+            </section>
           </div>
         </div>
       </React.Fragment>

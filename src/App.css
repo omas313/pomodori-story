@@ -2,15 +2,28 @@
   background-color: #ff7700;
 }
 
-.left-section, .right-section {
+section {
   padding-right: 2rem !important;
   padding-left: 2rem !important;
 }
 
 .session-button {
+  color: #EFF5DC !important;
   width: 70px;
   height: 70px;
   margin: 3px;
+  background-color: #a94f00 !important;
+  border-color: #a94f00 !important;
+}
+
+.session-button.active {
+  background-color: #ff7700 !important;
+  border-color: #ff7700 !important;
+}
+
+.session-button:hover {
+  background-color: #ff7700 !important;
+  border-color: #ff7700 !important;
 }
 
 .session-button-img {
@@ -39,17 +52,6 @@
   color: #4e1a00;
 }
 
-.list-group-item.col, .list-group-item.action-buttons {
-  opacity: 0.7 !important;
-}
-
-.list-group-item:hover {
-  background-color: #ffecce !important;
-}
-
-.list-group-item.active {
-  opacity: 1 !important;
-}
 
 @keyframes blink {
   50% {
