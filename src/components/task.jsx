@@ -4,7 +4,8 @@ import TaskEdit from './taskEdit';
 
 class Task extends Component {
   state = {
-    editing: false
+    editing: false,
+    newName: ''
   };
 
   handleEditClick = () => {
@@ -18,10 +19,14 @@ class Task extends Component {
     this.setState({ editing: false });
   };
 
+  handleChange = newName => {
+    this.setState({ newName });
+  };
+
   getBadgeColor = () => (this.props.task.count === 0 ? 'secondary' : 'primary');
 
   render() {
-    const { editing } = this.state;
+    const { editing, newName } = this.state;
     const { task, active, onSetActiveTask, onDelete } = this.props;
 
     const taskClasses = 'task' + (active ? ' active' : '');
@@ -34,7 +39,11 @@ class Task extends Component {
             onClick={() => onSetActiveTask(task)}
           >
             {editing ? (
-              <TaskEdit task={task} onEdit={this.handleEditFinish} />
+              <TaskEdit
+                task={task}
+                onChange={this.handleChange}
+                onEdit={this.handleEditFinish}
+              />
             ) : (
               task.name
             )}
@@ -45,15 +54,33 @@ class Task extends Component {
             </Badge>
           </Col>
           <Col md="3" xs="3" className="text-right action-buttons">
-            {/* TODO: add another button for submitting edit (handleEditFinish) with check mark as img */}
-            <Button
-              size="sm"
-              color="primary"
-              outline
-              onClick={this.handleEditClick}
-            >
-              <img src="./img/edit.svg" alt="Edit" className="action-button" />
-            </Button>
+            {editing ? (
+              <Button
+                size="sm"
+                color="primary"
+                outline
+                onClick={() => this.handleEditFinish(task._id, newName)}
+              >
+                <img
+                  src="./img/check_mark.svg"
+                  alt="Done"
+                  className="action-button"
+                />
+              </Button>
+            ) : (
+              <Button
+                size="sm"
+                color="primary"
+                outline
+                onClick={this.handleEditClick}
+              >
+                <img
+                  src="./img/edit.svg"
+                  alt="Edit"
+                  className="action-button"
+                />
+              </Button>
+            )}
             <Button
               size="sm"
               color="primary"

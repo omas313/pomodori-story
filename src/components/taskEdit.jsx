@@ -14,6 +14,9 @@ class TaskEdit extends Component {
   }
 
   handleChange = ({ currentTarget: input }) => {
+    const { onChange } = this.props;
+
+    onChange(input.value);
     this.setState({ text: input.value });
   };
 
