@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import SessionButtons from './components/sessionButtons';
 import Time from './components/time';
 import Tasks from './components/tasks';
-import TaskEntry from './components/taskEntry';
+import TaskInput from './components/TaskInput';
 import Summary from './components/summary';
 import AppNavbar from './components/appNavbar';
 import taskService from './services/taskService';
@@ -219,7 +219,10 @@ class App extends Component {
         <Container>
           <Row>
             <Col lg={{ size: 8, order: 1 }} xs={{ size: 12, order: 2 }}>
-              <TaskEntry onSubmit={this.handleNewTask} />
+              <TaskInput
+                onSubmit={this.handleNewTask}
+                placeholder="Enter task here..."
+              />
               <Tasks
                 tasks={tasks}
                 currentTask={currentTask}

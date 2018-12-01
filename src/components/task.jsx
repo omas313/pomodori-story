@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, ListGroupItem, Badge, Button } from 'reactstrap';
-import TaskEdit from './taskEdit';
+import TaskInput from './TaskInput';
 
 class Task extends Component {
   state = {
@@ -13,9 +13,9 @@ class Task extends Component {
     this.setState({ editing: !editing });
   };
 
-  handleEditFinish = (id, name) => {
-    const { onEdit } = this.props;
-    onEdit(id, name);
+  handleEditSubmit = name => {
+    const { onEdit, task } = this.props;
+    onEdit(task._id, name);
     this.setState({ editing: false });
   };
 
@@ -39,10 +39,10 @@ class Task extends Component {
             onClick={() => onSetActiveTask(task)}
           >
             {editing ? (
-              <TaskEdit
-                task={task}
+              <TaskInput
+                text={task.name}
                 onChange={this.handleChange}
-                onEdit={this.handleEditFinish}
+                onSubmit={this.handleEditSubmit}
               />
             ) : (
               task.name
@@ -59,7 +59,7 @@ class Task extends Component {
                 size="sm"
                 color="primary"
                 outline
-                onClick={() => this.handleEditFinish(task._id, newName)}
+                onClick={() => this.handleEditSubmit(newName)}
               >
                 <img
                   src="./img/check_mark.svg"
