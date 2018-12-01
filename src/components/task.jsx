@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Row, Col, ListGroupItem, Badge, Button } from 'reactstrap';
+import { Row, Col, ListGroupItem, Badge } from 'reactstrap';
 import TaskInput from './TaskInput';
+import TaskButtons from './taskButtons';
 
 class Task extends Component {
   state = {
@@ -54,45 +55,14 @@ class Task extends Component {
             </Badge>
           </Col>
           <Col md="3" xs="3" className="text-right action-buttons">
-            {editing ? (
-              <Button
-                size="sm"
-                color="primary"
-                outline
-                onClick={() => this.handleEditSubmit(newName)}
-              >
-                <img
-                  src="./img/check_mark.svg"
-                  alt="Done"
-                  className="action-button"
-                />
-              </Button>
-            ) : (
-              <Button
-                size="sm"
-                color="primary"
-                outline
-                onClick={this.handleEditClick}
-              >
-                <img
-                  src="./img/edit.svg"
-                  alt="Edit"
-                  className="action-button"
-                />
-              </Button>
-            )}
-            <Button
-              size="sm"
-              color="primary"
-              outline
-              onClick={() => onDelete(task)}
-            >
-              <img
-                src="./img/delete.svg"
-                alt="Delete"
-                className="action-button"
-              />
-            </Button>
+            <TaskButtons
+              task={task}
+              newName={newName}
+              editing={editing}
+              onSubmit={this.handleEditSubmit}
+              onButtonClick={this.handleEditClick}
+              onDelete={onDelete}
+            />
           </Col>
         </Row>
       </ListGroupItem>
