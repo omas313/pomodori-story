@@ -87,6 +87,7 @@ body {
   color: #4e1a00 !important;
   background-color: #fff6ee !important;
   border: 1px solid #ffdda9 !important;
+  font-size: 1.1rem !important;
   transition: background-color 0.3s, border-color 0.3s;
 }
 

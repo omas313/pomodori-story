@@ -1,9 +1,10 @@
 import React from 'react';
+import { ListGroup } from 'reactstrap';
 import Task from './task';
 
 const Tasks = ({ currentTask, tasks, onSetActiveTask, onDelete, onEdit }) => {
   return (
-    <ul className="tasks list-group list-group-flush">
+    <ListGroup flush>
       {tasks.length === 0 && <p>Add a task and start working!</p>}
       {tasks &&
         tasks.map(task => (
@@ -16,7 +17,7 @@ const Tasks = ({ currentTask, tasks, onSetActiveTask, onDelete, onEdit }) => {
             onEdit={onEdit}
           />
         ))}
-    </ul>
+    </ListGroup>
   );
 };
 

@@ -1,5 +1,10 @@
-.navbar-bg {
+nav {
   background-color: #ff7700;
+  margin-bottom: 2rem;
+}
+
+.navbar-brand, .nav-link, .navbar-toggler-icon {
+  color: #EFF5DC;
 }
 
 section {
@@ -7,7 +12,17 @@ section {
   padding-left: 2rem !important;
 }
 
-.session-button {
+.task-name {
+  color: #4e1a00;
+  overflow: auto;
+  font-size: 1.1rem;
+}
+
+.session-buttons {
+  text-align: center;
+}
+
+.session-buttons button {
   color: #EFF5DC !important;
   width: 70px;
   height: 70px;
@@ -16,17 +31,17 @@ section {
   border-color: #a94f00 !important;
 }
 
-.session-button.active {
+.session-buttons button.active {
   background-color: #ff7700 !important;
   border-color: #ff7700 !important;
 }
 
-.session-button:hover {
+.session-buttons button:hover {
   background-color: #ff7700 !important;
   border-color: #ff7700 !important;
 }
 
-.session-button-img {
+.session-buttons button img {
   width: 30px;
   max-height: 35px;
 }
@@ -38,7 +53,7 @@ section {
 .time {
   margin: 1rem 1rem 2rem 1rem;
   text-align: center;
-  font-size: 4rem;
+  font-size: 3rem;
   color: #4e1a00;
 }
 
@@ -48,10 +63,6 @@ section {
   padding: 0.6rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-
-.task-name {
-  color: #4e1a00;
 }
 
 
@@ -70,15 +81,16 @@ section {
   -webkit-animation: blink 2s ease-in-out 0s infinite;
 }
 
-@media(max-width: 767.98px) {
+
+@media(max-width: 575.98px) {
   .time {
-    font-size: 5rem;
+    font-size: 3rem !important;
   }
 }
 
 @media(max-width: 991.98px) {
   .time {
-    font-size: 3rem;
+    font-size: 4rem;
   }
 
   .right-section, .left-section {

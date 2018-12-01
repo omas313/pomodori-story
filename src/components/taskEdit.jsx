@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Input, FormGroup } from 'reactstrap';
 
-class TaskEntry extends Component {
+// TODO: refactor TaskEntry and TaskEdit to TaskInput for both cases
+class TaskEdit extends Component {
   state = {
     text: ''
   };
@@ -30,19 +32,18 @@ class TaskEntry extends Component {
     const { _id } = this.props.task;
 
     return (
-      <div className="form-group">
-        <input
+      <FormGroup>
+        <Input
           name={'edit-task-' + _id}
           id={'edit-task-' + _id}
-          className="form-control"
           value={text}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
           autoFocus
         />
-      </div>
+      </FormGroup>
     );
   }
 }
 
-export default TaskEntry;
+export default TaskEdit;

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import SessionButtons from './components/sessionButtons';
 import Time from './components/time';
 import Tasks from './components/tasks';
 import TaskEntry from './components/taskEntry';
 import Summary from './components/summary';
-import Navbar from './components/navbar';
+import AppNavbar from './components/appNavbar';
 import taskService from './services/taskService';
 import './App.css';
 
@@ -206,6 +207,7 @@ class App extends Component {
       currentTask,
       timer
     } = this.state;
+
     const paused =
       !timer &&
       time.min !== currentSession &&
@@ -213,10 +215,10 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <Navbar title="Pomodori Story" />
-        <div className="container">
-          <div className="row">
-            <section className="col-md-6 col-sm-12 order-2 order-md-1">
+        <AppNavbar title="Pomodori Story" />
+        <Container>
+          <Row>
+            <Col lg={{ size: 8, order: 1 }} xs={{ size: 12, order: 2 }}>
               <TaskEntry onSubmit={this.handleNewTask} />
               <Tasks
                 tasks={tasks}
@@ -226,8 +228,8 @@ class App extends Component {
                 onEdit={this.handleEditTask}
                 onDelete={this.handleDeleteTask}
               />
-            </section>
-            <section className="col-md-6 col-sm-12 order-1 order-md-2">
+            </Col>
+            <Col lg={{ size: 4, order: 2 }} xs={{ size: 12, order: 1 }}>
               <SessionButtons
                 currentSession={currentSession}
                 session={Session}
@@ -245,9 +247,9 @@ class App extends Component {
                 onToggle={this.handleTimerToggle}
               />
               <Summary taskCount={tasks.length} pomodoroCount={pomodoroCount} />
-            </section>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </React.Fragment>
     );
   }

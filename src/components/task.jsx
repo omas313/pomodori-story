@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col, ListGroupItem, Badge, Button } from 'reactstrap';
 import TaskEdit from './taskEdit';
 
 class Task extends Component {
@@ -12,46 +13,51 @@ class Task extends Component {
   };
 
   handleEditFinish = (id, name) => {
+    const { onEdit } = this.props;
+    onEdit(id, name);
     this.setState({ editing: false });
-    this.props.onEdit(id, name);
   };
 
-  render() {
-    const { task, active, onSetActiveTask, onDelete } = this.props;
-    const { editing } = this.state;
+  getBadgeColor = () => (this.props.task.count === 0 ? 'secondary' : 'primary');
 
-    const classes = 'task list-group-item row' + (active ? ' active' : '');
-    const badgeClasses =
-      'badge badge-pill badge-' + (task.count === 0 ? 'secondary' : 'primary');
+  render() {
+    const { editing } = this.state;
+    const { task, active, onSetActiveTask, onDelete } = this.props;
+
+    const taskClasses = 'task' + (active ? ' active' : '');
 
     return (
-      <li className={classes}>
-        <div className="row">
-          <div
-            className="col w-100 clickable task-name"
+      <ListGroupItem className={taskClasses}>
+        <Row>
+          <Col
+            className="w-100 clickable task-name"
             onClick={() => onSetActiveTask(task)}
           >
             {editing ? (
-              <TaskEdit task={this.props.task} onEdit={this.handleEditFinish} />
+              <TaskEdit task={task} onEdit={this.handleEditFinish} />
             ) : (
               task.name
             )}
-          </div>
-          <div
-            className="col-2 clickable"
-            onClick={() => onSetActiveTask(task)}
-          >
-            <span className={badgeClasses}>{task.count}</span>
-          </div>
-          <div className="col-3 text-right action-buttons">
-            <button
-              className="btn btn-outline-primary btn-sm"
+          </Col>
+          <Col md="2" xs="1">
+            <Badge color={this.getBadgeColor()} pill>
+              {task.count}
+            </Badge>
+          </Col>
+          <Col md="3" xs="3" className="text-right action-buttons">
+            {/* TODO: add another button for submitting edit (handleEditFinish) with check mark as img */}
+            <Button
+              size="sm"
+              color="primary"
+              outline
               onClick={this.handleEditClick}
             >
               <img src="./img/edit.svg" alt="Edit" className="action-button" />
-            </button>
-            <button
-              className="btn btn-outline-primary btn-sm"
+            </Button>
+            <Button
+              size="sm"
+              color="primary"
+              outline
               onClick={() => onDelete(task)}
             >
               <img
@@ -59,10 +65,10 @@ class Task extends Component {
                 alt="Delete"
                 className="action-button"
               />
-            </button>
-          </div>
-        </div>
-      </li>
+            </Button>
+          </Col>
+        </Row>
+      </ListGroupItem>
     );
   }
 }

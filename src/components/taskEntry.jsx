@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Input, FormGroup } from 'reactstrap';
 
 class TaskEntry extends Component {
   state = {
@@ -22,18 +23,17 @@ class TaskEntry extends Component {
     const { text } = this.state;
 
     return (
-      <div className="form-group">
-        <input
+      <FormGroup>
+        <Input
           name="new-task"
           id="new-task"
-          className="form-control"
           placeholder="Enter a task..."
           value={text}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
           autoFocus
         />
-      </div>
+      </FormGroup>
     );
   }
 }
