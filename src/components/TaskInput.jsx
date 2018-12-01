@@ -17,9 +17,15 @@ class TaskInput extends Component {
 
   handleKeyDown = ({ key }) => {
     const { text } = this.state;
-    const { onSubmit } = this.props;
+    if (key !== 'Enter') return;
 
-    if (key !== 'Enter' || !text.trim()) return;
+    this.handleSubmit(text);
+  };
+
+  handleSubmit = text => {
+    if (!text.trim()) return;
+
+    const { onSubmit } = this.props;
 
     onSubmit(text);
     this.setState({ text: '' });
@@ -37,6 +43,7 @@ class TaskInput extends Component {
           value={text}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
+          onBlur={() => this.handleSubmit(text)}
           autoFocus
         />
       </FormGroup>
