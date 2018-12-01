@@ -1,10 +1,45 @@
-import React from 'react';
-import { Navbar, NavbarBrand, Nav } from 'reactstrap';
+import React, { Component } from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap';
 
-const AppNavbar = ({ title }) => (
-  <Navbar dark expand="md">
-    <NavbarBrand href="/">{title}</NavbarBrand>
-  </Navbar>
-);
+class AppNavbar extends Component {
+  state = {
+    isOpen: false
+  };
+
+  handleToggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  };
+
+  render() {
+    const { isOpen } = this.state;
+    const { title } = this.props;
+
+    return (
+      <div>
+        <Navbar dark expand="md">
+          <NavbarBrand href="/">{title}</NavbarBrand>
+          <NavbarToggler onClick={this.handleToggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink>Info</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
 
 export default AppNavbar;
