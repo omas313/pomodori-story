@@ -8,6 +8,15 @@ body {
   color: #4e1a00;
 }
 
+.container.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.navbar-brand, .nav-link, .navbar-toggler-icon {
+  color: #EFF5DC !important;
+}
+
 .w-100 {
   width: 100%;
 }
@@ -48,7 +57,9 @@ body {
   background-color: #fffaf0 !important;
   border-color: #ffdaa0 !important;
   border-radius: 10px !important;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s, border-color 0.3s, display 0.3s;
+  animation: fadeIn 0.3s ease-in 0s 1;
+  -webkit-animation: fadeIn 0.3s ease-in 0s 1;
 }
 
 .list-group-item.active {
@@ -73,9 +84,13 @@ body {
   opacity: 1 !important;
 }
 
+.badge {
+  transition: background-color 0.3s;
+}
+
 .badge-primary {
   color: #EFF5DC !important;
-  background-color: #4e1a00 !important;
+  background-color: #ff7700 !important;
 }
 
 .badge-secondary {
@@ -96,4 +111,21 @@ body {
   background-color: #fff6ee !important;
   border-color: #4e1a00 !important;
   box-shadow: none !important;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
 }

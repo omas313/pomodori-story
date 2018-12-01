@@ -1,10 +1,12 @@
 nav {
   background-color: #ff7700;
   margin-bottom: 2rem;
+  transition: background-color 1s;
 }
 
-.navbar-brand, .nav-link, .navbar-toggler-icon {
-  color: #EFF5DC;
+nav.break-vibe {
+  background-color: #b12c0b;
+  margin-bottom: 2rem;
 }
 
 section {
@@ -27,18 +29,32 @@ section {
   width: 70px;
   height: 70px;
   margin: 3px;
+}
+.session-buttons button.pomodoro-button {
   background-color: #a94f00 !important;
   border-color: #a94f00 !important;
 }
+.session-buttons button.break-button {
+  background-color: #b12c0b !important;
+  border-color: #b12c0b !important;
+}
 
-.session-buttons button.active {
+.session-buttons button.working {
   background-color: #ff7700 !important;
   border-color: #ff7700 !important;
 }
+.session-buttons button.break {
+  background-color: #f3380a !important;
+  border-color: #f3380a !important;
+}
 
-.session-buttons button:hover {
+.session-buttons button.pomodoro-button:hover {
   background-color: #ff7700 !important;
   border-color: #ff7700 !important;
+}
+.session-buttons button.break-button:hover {
+  background-color: #f3380a !important;
+  border-color: #f3380a !important;
 }
 
 .session-buttons button img {
@@ -46,7 +62,7 @@ section {
   max-height: 35px;
 }
 
-.action-button {
+.action-button img {
   max-width: 20px;
 }
 
@@ -54,28 +70,33 @@ section {
   margin: 1rem 1rem 2rem 1rem;
   text-align: center;
   font-size: 3rem;
-  color: #4e1a00;
+  transition: color 1s;
+}
+.time.working {
+  color: #ff7700;
+}
+.time.break {
+  color: #b12c0b;
 }
 
 .summary {
   border-top: 1px solid #ff7700;
   border-bottom: 1px solid #ff7700;
   padding: 0.6rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0 !important;
 }
-
 
 @keyframes blink {
   50% {
-      opacity: 0.0;
-  }
-  }
-  @-webkit-keyframes blink {
-  50% {
-      opacity: 0.0;
+    opacity: 0.0;
   }
 }
+@-webkit-keyframes blink {
+  50% {
+    opacity: 0.0;
+  }
+}
+
 .blink {
   animation: blink 2s ease-in-out 0s infinite;
   -webkit-animation: blink 2s ease-in-out 0s infinite;
@@ -95,5 +116,12 @@ section {
 
   .right-section, .left-section {
     margin: 1rem auto;
+  }
+}
+
+@media(min-width: 992px) {
+  .tasks-column {
+    max-height: 75vh !important;
+    overflow: auto;
   }
 }

@@ -212,13 +212,18 @@ class App extends Component {
       !timer &&
       time.min !== currentSession &&
       (time.min !== 0 && time.sec !== 0);
+    const working = currentSession === Session.POMODORO;
 
     return (
       <React.Fragment>
-        <AppNavbar title="Pomodori Story" />
+        <AppNavbar title="Pomodori Story" working={working} />
         <Container>
           <Row>
-            <Col lg={{ size: 8, order: 1 }} xs={{ size: 12, order: 2 }}>
+            <Col
+              lg={{ size: 8, order: 1 }}
+              xs={{ size: 12, order: 2 }}
+              className="tasks-column"
+            >
               <TaskInput
                 onSubmit={this.handleNewTask}
                 placeholder="Enter task here..."
@@ -232,7 +237,11 @@ class App extends Component {
                 onDelete={this.handleDeleteTask}
               />
             </Col>
-            <Col lg={{ size: 4, order: 2 }} xs={{ size: 12, order: 1 }}>
+            <Col
+              lg={{ size: 4, order: 2 }}
+              xs={{ size: 12, order: 1 }}
+              className="timer-column"
+            >
               <SessionButtons
                 currentSession={currentSession}
                 session={Session}
@@ -246,6 +255,7 @@ class App extends Component {
               />
               <Time
                 time={time}
+                working={working}
                 paused={paused}
                 onToggle={this.handleTimerToggle}
               />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 
 class SessionButtons extends Component {
-  isActive = session => (this.props.currentSession === session ? 'active' : '');
+  isActive = session => this.props.currentSession === session;
 
   render() {
     const {
@@ -15,7 +15,10 @@ class SessionButtons extends Component {
     return (
       <div className="session-buttons">
         <Button
-          className={this.isActive(session.POMODORO)}
+          className={
+            'pomodoro-button' +
+            (this.isActive(session.POMODORO) ? ' working' : '')
+          }
           onClick={onPomodoroClick}
         >
           <img
@@ -25,7 +28,10 @@ class SessionButtons extends Component {
           />
         </Button>
         <Button
-          className={this.isActive(session.SHORT_BREAK)}
+          className={
+            'break-button' +
+            (this.isActive(session.SHORT_BREAK) ? ' break' : '')
+          }
           onClick={onShortBreakClick}
         >
           <img
@@ -35,7 +41,9 @@ class SessionButtons extends Component {
           />
         </Button>
         <Button
-          className={this.isActive(session.LONG_BREAK)}
+          className={
+            'break-button' + (this.isActive(session.LONG_BREAK) ? ' break' : '')
+          }
           onClick={onLongBreakClick}
         >
           <img

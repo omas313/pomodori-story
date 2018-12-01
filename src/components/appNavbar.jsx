@@ -22,11 +22,11 @@ class AppNavbar extends Component {
 
   render() {
     const { isOpen } = this.state;
-    const { title } = this.props;
+    const { title, working } = this.props;
 
     return (
       <div>
-        <Navbar dark expand="md">
+        <Navbar dark expand="md" className={!working ? 'break-vibe' : ''}>
           <NavbarBrand href="/">{title}</NavbarBrand>
           <NavbarToggler onClick={this.handleToggle} />
           <Collapse isOpen={isOpen} navbar>
