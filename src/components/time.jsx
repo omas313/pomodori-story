@@ -9,11 +9,11 @@ class Time extends Component {
   }
 
   render() {
-    const { time, paused, working, onToggle } = this.props;
+    const { time, isPaused, isPomodoro, onToggle } = this.props;
 
     let classes = 'time clickable';
-    const blink = paused ? ' blink' : '',
-      color = working ? ' working' : ' break';
+    const blink = isPaused ? ' blink' : '',
+      color = isPomodoro ? ' working' : ' break';
     classes += blink + color;
 
     return (
