@@ -39,7 +39,7 @@ class App extends Component {
 
   initTasks() {
     const tasks = taskService.getAll() || [
-      { _id: 1, name: 'Untitled task', count: 0 }
+      { _id: '1', name: 'Untitled task', count: 0 }
     ];
     this.setState({
       tasks,
