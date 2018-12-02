@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import SessionButtons from './components/sessionButtons';
 import Time from './components/time';
 import Tasks from './components/tasks';
-import TaskInput from './components/TaskInput';
+import TaskInput from './components/taskInput';
 import Summary from './components/summary';
 import AppNavbar from './components/appNavbar';
 import taskService from './services/taskService';

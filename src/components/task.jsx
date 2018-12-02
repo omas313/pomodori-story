@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, ListGroupItem, Badge } from 'reactstrap';
-import TaskInput from './TaskInput';
+import TaskInput from './taskInput';
 import TaskButtons from './taskButtons';
 import { taskType } from './../types/index';
 
