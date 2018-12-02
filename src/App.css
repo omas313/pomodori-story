@@ -1,11 +1,11 @@
 nav {
-  background-color: #ff7700;
+  background-color: #db0504;
   margin-bottom: 2rem;
   transition: background-color 1s;
 }
 
 nav.break-vibe {
-  background-color: #b12c0b;
+  background-color: #E84A07;
   margin-bottom: 2rem;
 }
 
@@ -36,30 +36,30 @@ section {
   margin: 3px;
 }
 .session-buttons button.pomodoro-button {
-  background-color: #a94f00 !important;
-  border-color: #a94f00 !important;
+  background-color: #800100 !important;
+  border-color: #800100 !important;
 }
 .session-buttons button.break-button {
-  background-color: #b12c0b !important;
-  border-color: #b12c0b !important;
+  background-color: #b93b05 !important;
+  border-color: #b93b05 !important;
 }
 
 .session-buttons button.working {
-  background-color: #ff7700 !important;
-  border-color: #ff7700 !important;
+  background-color: #db0504 !important;
+  border-color: #db0504 !important;
 }
 .session-buttons button.break {
-  background-color: #f3380a !important;
-  border-color: #f3380a !important;
+  background-color: #E84A07 !important;
+  border-color: #E84A07 !important;
 }
 
 .session-buttons button.pomodoro-button:hover {
-  background-color: #ff7700 !important;
-  border-color: #ff7700 !important;
+  background-color: #db0504 !important;
+  border-color: #db0504 !important;
 }
 .session-buttons button.break-button:hover {
-  background-color: #f3380a !important;
-  border-color: #f3380a !important;
+  background-color: #E84A07 !important;
+  border-color: #E84A07 !important;
 }
 
 .session-buttons button img {
@@ -78,15 +78,15 @@ section {
   transition: color 1s;
 }
 .time.working {
-  color: #ff7700;
+  color: #db0504;
 }
 .time.break {
-  color: #b12c0b;
+  color: #E84A07;
 }
 
 .summary {
-  border-top: 1px solid #ff7700;
-  border-bottom: 1px solid #ff7700;
+  border-top: 1px solid #db0504;
+  border-bottom: 1px solid #db0504;
   padding: 0.6rem;
   margin: 1rem 0 !important;
 }
@@ -99,25 +99,25 @@ section {
 }
 
 .info-modal a {
-  color: #ff7700 !important;
+  color: #db0504 !important;
   text-decoration: none;
 }
 .info-modal a:hover {
-  color: #b12c0b !important;
+  color: #800100 !important;
   text-decoration: none;
 }
 
 @keyframes colorize {
-  0% { background-color: #ff7700; }
-  20% { background-color: #ff5e00; }
+  0% { background-color: #db0504; }
+  20% { background-color: #E84A07; }
   60% { background-color: #ff9900; }
-  100% { background-color: #ff7700; }
+  100% { background-color: #db0504; }
 }
 @-webkit-keyframes colorize {
-  0% { background-color: #ff7700; }
-  20% { background-color: #ff5e00; }
+  0% { background-color: #db0504; }
+  20% { background-color: #E84A07; }
   60% { background-color: #ff9900; }
-  100% { background-color: #ff7700; }
+  100% { background-color: #db0504; }
 }
 
 @keyframes blink {
