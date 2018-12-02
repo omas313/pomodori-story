@@ -9,6 +9,11 @@ nav.break-vibe {
   margin-bottom: 2rem;
 }
 
+nav.animate {
+  animation: colorize 10s ease-in-out 1s infinite;
+  -webkit-animation: colorize 10s ease-in-out 1s infinite;
+}
+
 section {
   padding-right: 2rem !important;
   padding-left: 2rem !important;
@@ -84,6 +89,19 @@ section {
   border-bottom: 1px solid #ff7700;
   padding: 0.6rem;
   margin: 1rem 0 !important;
+}
+
+@keyframes colorize {
+  0% { background-color: #ff7700; }
+  20% { background-color: #ff5e00; }
+  60% { background-color: #ff9900; }
+  100% { background-color: #ff7700; }
+}
+@-webkit-keyframes colorize {
+  0% { background-color: #ff7700; }
+  20% { background-color: #ff5e00; }
+  60% { background-color: #ff9900; }
+  100% { background-color: #ff7700; }
 }
 
 @keyframes blink {

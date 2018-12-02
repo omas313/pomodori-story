@@ -216,7 +216,11 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <AppNavbar title="Pomodori Story" working={working} />
+        <AppNavbar
+          title="Pomodori Story"
+          breakTime={!working}
+          animate={!!timer && working}
+        />
         <Container>
           <Row>
             <Col
