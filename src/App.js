@@ -24,7 +24,8 @@ class App extends Component {
     currentSession: Session.POMODORO,
     tasks: [],
     currentTask: null,
-    pomodoroCount: 0
+    pomodoroCount: 0,
+    infoModalOpen: false
   };
 
   componentDidMount() {
