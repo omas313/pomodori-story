@@ -30,8 +30,8 @@ Time.propTypes = {
     min: PropTypes.number.isRequired,
     sec: PropTypes.number.isRequired
   }).isRequired,
-  working: PropTypes.bool.isRequired,
-  paused: PropTypes.bool.isRequired,
+  isPomodoro: PropTypes.bool.isRequired,
+  isPaused: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired
 };
 

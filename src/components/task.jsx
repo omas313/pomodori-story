@@ -7,17 +7,17 @@ import { taskType } from './../types/index';
 
 class Task extends Component {
   state = {
-    editing: false,
+    isEditing: false,
     newName: ''
   };
 
   handleEditClick = () => {
-    const { editing } = this.state;
-    this.setState({ editing: !editing });
+    const { isEditing } = this.state;
+    this.setState({ isEditing: !isEditing });
   };
 
   handleEditSubmit = name => {
-    const { onEdit, task } = this.props;
+    const { task, onEdit } = this.props;
     onEdit(task._id, name);
     this.setState({ editing: false });
   };
@@ -29,19 +29,19 @@ class Task extends Component {
   getBadgeColor = () => (this.props.task.count === 0 ? 'secondary' : 'primary');
 
   render() {
-    const { editing, newName } = this.state;
-    const { task, active, onSetActiveTask, onDelete } = this.props;
+    const { isEditing, newName } = this.state;
+    const { task, isActive, onSetActive, onDelete } = this.props;
 
-    const taskClasses = 'task' + (active ? ' active' : '');
+    const taskClasses = 'task' + (isActive ? ' active' : '');
 
     return (
       <ListGroupItem className={taskClasses}>
         <Row>
           <Col
             className="w-100 clickable task-name"
-            onClick={() => onSetActiveTask(task)}
+            onClick={() => onSetActive(task)}
           >
-            {editing ? (
+            {isEditing ? (
               <TaskInput
                 text={task.name}
                 onChange={this.handleChange}
@@ -60,9 +60,9 @@ class Task extends Component {
             <TaskButtons
               task={task}
               newName={newName}
-              editing={editing}
+              isEditing={isEditing}
               onSubmit={this.handleEditSubmit}
-              onButtonClick={this.handleEditClick}
+              onEditClick={this.handleEditClick}
               onDelete={onDelete}
             />
           </Col>
@@ -72,11 +72,10 @@ class Task extends Component {
   }
 }
 
-// TODO: change to isActive, onSetActive
 Task.propTypes = {
   task: taskType.isRequired,
-  active: PropTypes.bool,
-  onSetActiveTask: PropTypes.func.isRequired,
+  isActive: PropTypes.bool,
+  onSetActive: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired
 };

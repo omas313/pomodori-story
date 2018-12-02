@@ -23,10 +23,10 @@ class AppNavbar extends Component {
 
   render() {
     const { isOpen } = this.state;
-    const { title, breakTime, animate, onInfoClick } = this.props;
+    const { title, isBreakTime, isWorking, onInfoClick } = this.props;
 
-    const classes = `${breakTime ? 'break-vibe' : ''} ${
-      animate ? 'animate' : ''
+    const classes = `${isBreakTime ? 'break-vibe' : ''} ${
+      isWorking ? 'animate' : ''
     }`;
 
     return (
@@ -52,8 +52,8 @@ class AppNavbar extends Component {
 // TODO: make prop names clearer
 AppNavbar.propTypes = {
   title: PropTypes.string.isRequired,
-  breakTime: PropTypes.bool.isRequired,
-  animate: PropTypes.bool.isRequired,
+  isBreakTime: PropTypes.bool.isRequired,
+  isWorking: PropTypes.bool.isRequired,
   onInfoClick: PropTypes.func.isRequired
 };
 

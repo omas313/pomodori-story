@@ -221,14 +221,14 @@ class App extends Component {
       !timer &&
       time.min !== currentSession &&
       (time.min !== 0 && time.sec !== 0);
-    const working = currentSession === Session.POMODORO;
+    const isSessionPomodoro = currentSession === Session.POMODORO;
 
     return (
       <React.Fragment>
         <AppNavbar
           title="Pomodori Story"
-          breakTime={!working}
-          animate={!!timer && working}
+          isBreakTime={!isSessionPomodoro}
+          isWorking={!!timer && isSessionPomodoro}
           onInfoClick={this.handleInfoModalToggle}
         />
         <InfoModal
@@ -243,8 +243,8 @@ class App extends Component {
               className="tasks-column"
             >
               <TaskInput
-                onSubmit={this.handleNewTask}
                 placeholder="Enter task here..."
+                onSubmit={this.handleNewTask}
               />
               <Tasks
                 tasks={tasks}
@@ -273,8 +273,8 @@ class App extends Component {
               />
               <Time
                 time={time}
-                working={working}
-                paused={paused}
+                isPomodoro={isSessionPomodoro}
+                isPaused={paused}
                 onToggle={this.handleTimerToggle}
               />
               <Summary taskCount={tasks.length} pomodoroCount={pomodoroCount} />
