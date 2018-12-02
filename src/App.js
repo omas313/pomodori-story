@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import SessionButtons from './components/sessionButtons';
-import Time from './components/time';
+import Timer from './components/timer';
 import Tasks from './components/tasks';
 import TaskInput from './components/taskInput';
 import Summary from './components/summary';
@@ -18,9 +18,6 @@ const Session = {
 
 class App extends Component {
   state = {
-    time: { min: Session.POMODORO, sec: 0 },
-    timer: null,
-    playing: false,
     currentSession: Session.POMODORO,
     tasks: [],
     currentTask: null,
@@ -48,26 +45,8 @@ class App extends Component {
     });
   }
 
-  stopTimer() {
-    clearInterval(this.state.timer);
-    this.setState({ timer: null, playing: false });
-  }
-
-  startTimer() {
-    const { playing } = this.state;
-
-    if (playing) this.stopTimer();
-
-    this.setState({
-      timer: setInterval(this.handleSecondPassed, 1000),
-      playing: true
-    });
-  }
-
   onSessionEnd() {
     const { currentSession } = this.state;
-
-    this.stopTimer();
 
     if (currentSession === Session.POMODORO) this.onPomodoroFinished();
     else this.handleSetSession(Session.POMODORO);
@@ -117,36 +96,8 @@ class App extends Component {
     }
   }
 
-  handleSecondPassed = () => {
-    const { time } = this.state;
-    const nextTime = { ...time };
-
-    if (time.sec === 0 && time.min === 0) return this.onSessionEnd();
-
-    if (time.sec === 0) {
-      nextTime.min = time.min - 1;
-      nextTime.sec = 59;
-    } else {
-      nextTime.sec = time.sec - 1;
-    }
-
-    this.setState({ time: nextTime });
-  };
-
-  handleTimerToggle = () => {
-    const { playing } = this.state;
-
-    if (playing) this.stopTimer();
-    else this.startTimer();
-  };
-
   handleSetSession = session => {
-    this.setState({
-      time: { min: session, sec: 0 },
-      currentSession: session
-    });
-
-    this.startTimer();
+    this.setState({ currentSession: session });
   };
 
   handleSetActiveTask = task => {
@@ -209,7 +160,6 @@ class App extends Component {
   render() {
     const {
       pomodoroCount,
-      time,
       currentSession,
       tasks,
       currentTask,
@@ -217,10 +167,6 @@ class App extends Component {
       infoModalOpen
     } = this.state;
 
-    const paused =
-      !timer &&
-      time.min !== currentSession &&
-      (time.min !== 0 && time.sec !== 0);
     const isSessionPomodoro = currentSession === Session.POMODORO;
 
     return (
@@ -265,11 +211,10 @@ class App extends Component {
                 session={Session}
                 onButtonClick={this.handleSetSession}
               />
-              <Time
-                time={time}
+              <Timer
+                currentSession={currentSession}
                 isPomodoro={isSessionPomodoro}
-                isPaused={paused}
-                onToggle={this.handleTimerToggle}
+                onTimerDone={this.onSessionEnd}
               />
               <Summary taskCount={tasks.length} pomodoroCount={pomodoroCount} />
             </Col>
