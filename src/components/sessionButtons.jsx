@@ -3,24 +3,26 @@ import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
 class SessionButtons extends Component {
-  isActive = session => this.props.currentSession === session;
+  isActive = sess => this.props.currentSession === sess;
+
+  getButtonClasses = sess => {
+    const { session } = this.props;
+    const pomodoro = sess === session.POMODORO;
+
+    let classes = pomodoro ? 'pomodoro-button' : 'break-button';
+    if (this.isActive(sess)) classes += pomodoro ? ' working' : ' break';
+
+    return classes;
+  };
 
   render() {
-    const {
-      session,
-      onPomodoroClick,
-      onShortBreakClick,
-      onLongBreakClick
-    } = this.props;
+    const { session, onButtonClick } = this.props;
 
     return (
       <div className="session-buttons">
         <Button
-          className={
-            'pomodoro-button' +
-            (this.isActive(session.POMODORO) ? ' working' : '')
-          }
-          onClick={onPomodoroClick}
+          className={this.getButtonClasses(session.POMODORO)}
+          onClick={() => onButtonClick(session.POMODORO)}
         >
           <img
             src="./img/pomodoro.png"
@@ -29,11 +31,8 @@ class SessionButtons extends Component {
           />
         </Button>
         <Button
-          className={
-            'break-button' +
-            (this.isActive(session.SHORT_BREAK) ? ' break' : '')
-          }
-          onClick={onShortBreakClick}
+          className={this.getButtonClasses(session.SHORT_BREAK)}
+          onClick={() => onButtonClick(session.SHORT_BREAK)}
         >
           <img
             src="./img/time-5.png"
@@ -42,10 +41,8 @@ class SessionButtons extends Component {
           />
         </Button>
         <Button
-          className={
-            'break-button' + (this.isActive(session.LONG_BREAK) ? ' break' : '')
-          }
-          onClick={onLongBreakClick}
+          className={this.getButtonClasses(session.LONG_BREAK)}
+          onClick={() => onButtonClick(session.LONG_BREAK)}
         >
           <img
             src="./img/time-10.png"
@@ -60,9 +57,7 @@ class SessionButtons extends Component {
 
 SessionButtons.propTypes = {
   session: PropTypes.objectOf(PropTypes.number).isRequired,
-  onPomodoroClick: PropTypes.func.isRequired,
-  onShortBreakClick: PropTypes.func.isRequired,
-  onLongBreakClick: PropTypes.func.isRequired
+  onButtonClick: PropTypes.func.isRequired
 };
 
 export default SessionButtons;

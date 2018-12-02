@@ -263,13 +263,7 @@ class App extends Component {
               <SessionButtons
                 currentSession={currentSession}
                 session={Session}
-                onPomodoroClick={() => this.handleSetSession(Session.POMODORO)}
-                onShortBreakClick={() =>
-                  this.handleSetSession(Session.SHORT_BREAK)
-                }
-                onLongBreakClick={() =>
-                  this.handleSetSession(Session.LONG_BREAK)
-                }
+                onButtonClick={this.handleSetSession}
               />
               <Time
                 time={time}
