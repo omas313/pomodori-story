@@ -8,6 +8,7 @@ import Summary from './components/summary';
 import AppNavbar from './components/appNavbar';
 import taskService from './services/taskService';
 import './App.css';
+import InfoModal from './components/infoModal';
 
 const Session = {
   POMODORO: 25,
@@ -198,6 +199,12 @@ class App extends Component {
     });
   };
 
+  handleInfoModalToggle = () => {
+    this.setState({
+      infoModalOpen: !this.state.infoModalOpen
+    });
+  };
+
   render() {
     const {
       pomodoroCount,
@@ -205,7 +212,8 @@ class App extends Component {
       currentSession,
       tasks,
       currentTask,
-      timer
+      timer,
+      infoModalOpen
     } = this.state;
 
     const paused =
@@ -220,6 +228,11 @@ class App extends Component {
           title="Pomodori Story"
           breakTime={!working}
           animate={!!timer && working}
+          onInfoClick={this.handleInfoModalToggle}
+        />
+        <InfoModal
+          isOpen={infoModalOpen}
+          onToggle={this.handleInfoModalToggle}
         />
         <Container>
           <Row>

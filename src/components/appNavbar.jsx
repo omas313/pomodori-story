@@ -22,7 +22,7 @@ class AppNavbar extends Component {
 
   render() {
     const { isOpen } = this.state;
-    const { title, breakTime, animate } = this.props;
+    const { title, breakTime, animate, onInfoClick } = this.props;
 
     const classes = `${breakTime ? 'break-vibe' : ''} ${
       animate ? 'animate' : ''
@@ -36,7 +36,9 @@ class AppNavbar extends Component {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink>Info</NavLink>
+                <NavLink className="clickable" onClick={onInfoClick}>
+                  Info
+                </NavLink>
               </NavItem>
             </Nav>
           </Collapse>

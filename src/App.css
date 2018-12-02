@@ -91,6 +91,22 @@ section {
   margin: 1rem 0 !important;
 }
 
+.info-modal {
+  max-height: 80vh !important;
+  max-width: 80vw !important;
+  background-color: #EFF5DC !important;
+  margin: .5rem auto;
+}
+
+.info-modal a {
+  color: #ff7700 !important;
+  text-decoration: none;
+}
+.info-modal a:hover {
+  color: #b12c0b !important;
+  text-decoration: none;
+}
+
 @keyframes colorize {
   0% { background-color: #ff7700; }
   20% { background-color: #ff5e00; }
