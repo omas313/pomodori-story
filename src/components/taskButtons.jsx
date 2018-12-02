@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
+import { taskType } from './../types/index';
 
 class TaskButtons extends Component {
   renderActionButtons() {
@@ -51,5 +53,15 @@ class TaskButtons extends Component {
     return editing ? this.renderSubmitEditButton() : this.renderActionButtons();
   }
 }
+
+// TODO: change prop names onEditClick, isEditing
+TaskButtons.propTypes = {
+  task: taskType,
+  newName: PropTypes.string.isRequired,
+  editing: PropTypes.bool.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
+};
 
 export default TaskButtons;

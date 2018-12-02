@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import PropTypes from 'prop-types';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 const InfoModal = ({ isOpen, onToggle }) => {
   return (
@@ -37,6 +38,11 @@ const InfoModal = ({ isOpen, onToggle }) => {
       </ModalBody>
     </Modal>
   );
+};
+
+InfoModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired
 };
 
 export default InfoModal;

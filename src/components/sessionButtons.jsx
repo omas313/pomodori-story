@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
 class SessionButtons extends Component {
@@ -56,5 +57,12 @@ class SessionButtons extends Component {
     );
   }
 }
+
+SessionButtons.propTypes = {
+  session: PropTypes.objectOf(PropTypes.number).isRequired,
+  onPomodoroClick: PropTypes.func.isRequired,
+  onShortBreakClick: PropTypes.func.isRequired,
+  onLongBreakClick: PropTypes.func.isRequired
+};
 
 export default SessionButtons;

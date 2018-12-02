@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Collapse,
   Navbar,
@@ -47,5 +48,13 @@ class AppNavbar extends Component {
     );
   }
 }
+
+// TODO: make prop names clearer
+AppNavbar.propTypes = {
+  title: PropTypes.string.isRequired,
+  breakTime: PropTypes.bool.isRequired,
+  animate: PropTypes.bool.isRequired,
+  onInfoClick: PropTypes.func.isRequired
+};
 
 export default AppNavbar;

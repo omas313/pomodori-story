@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Input, FormGroup } from 'reactstrap';
 
 class TaskInput extends Component {
@@ -50,6 +51,13 @@ class TaskInput extends Component {
     );
   }
 }
+
+TaskInput.propTypes = {
+  text: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired
+};
 
 TaskInput.defaultProps = {
   text: '',

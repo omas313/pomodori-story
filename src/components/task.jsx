@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col, ListGroupItem, Badge } from 'reactstrap';
 import TaskInput from './TaskInput';
 import TaskButtons from './taskButtons';
+import { taskType } from './../types/index';
 
 class Task extends Component {
   state = {
@@ -69,5 +71,14 @@ class Task extends Component {
     );
   }
 }
+
+// TODO: change to isActive, onSetActive
+Task.propTypes = {
+  task: taskType.isRequired,
+  active: PropTypes.bool,
+  onSetActiveTask: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired
+};
 
 export default Task;
