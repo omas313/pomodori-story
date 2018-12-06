@@ -4,33 +4,21 @@ import Time from '../models/time';
 
 class Timer extends Component {
   state = {
-    playing: false,
+    running: false,
     time: new Time(0, 0),
     timer: null
   };
 
   componentDidMount() {
-    this.setTime(this.props.currentSession, 0);
+    this.setTime(this.props.currentSessionValue, 0);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currentSession !== this.props.currentSession)
+    if (prevProps.currentSessionValue !== this.props.currentSessionValue)
       this.onNewSession();
   }
 
   setTime = (min, sec) => this.setState({ time: new Time(min, sec) });
-
-  onNewSession = () => {
-    this.setTime(this.props.currentSession, 0);
-    this.startTimer();
-  };
-
-  handleTimerToggle = () => {
-    const { playing } = this.state;
-
-    if (playing) this.stopTimer();
-    else this.startTimer();
-  };
 
   handleSecondPassed = () => {
     const { time } = this.state;
@@ -52,29 +40,44 @@ class Timer extends Component {
     this.setTime(nextTime.min, nextTime.sec);
   };
 
+  handleTimerToggle = () => {
+    const { running } = this.state;
+    const { onTimerToggle } = this.props;
+
+    if (running) this.stopTimer();
+    else this.startTimer();
+
+    onTimerToggle(!running);
+  };
+
   stopTimer() {
     clearInterval(this.state.timer);
-    this.setState({ timer: null, playing: false });
+    this.setState({ timer: null, running: false });
   }
 
   startTimer() {
-    const { playing } = this.state;
+    const { running } = this.state;
 
-    if (playing) this.stopTimer();
+    if (running) this.stopTimer();
 
     this.setState({
       timer: setInterval(this.handleSecondPassed, 1000),
-      playing: true
+      running: true
     });
   }
 
+  onNewSession = () => {
+    this.setTime(this.props.currentSessionValue, 0);
+    this.startTimer();
+  };
+
   render() {
     const { time, timer } = this.state;
-    const { currentSession, isPomodoro } = this.props;
+    const { currentSessionValue, isPomodoro } = this.props;
 
     const isPaused =
       !timer &&
-      time.min !== currentSession &&
+      time.min !== currentSessionValue &&
       (time.min !== 0 && time.sec !== 0);
 
     let classes = 'time clickable';
@@ -91,8 +94,9 @@ class Timer extends Component {
 }
 
 Time.propTypes = {
-  currentSession: PropTypes.number.isRequired,
+  currentSessionValue: PropTypes.number.isRequired,
   isPomodoro: PropTypes.bool.isRequired,
+  onTimerToggle: PropTypes.func.isRequired,
   onTimerDone: PropTypes.func.isRequired
 };
 

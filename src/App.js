@@ -20,6 +20,7 @@ class App extends Component {
     pomodoroCount: 0,
     pendingPomodoro: false,
     taskCount: 0,
+    isWorking: false,
     infoModalOpen: false
   };
 
@@ -50,6 +51,12 @@ class App extends Component {
     this.setState({ currentSession: session });
   };
 
+  handleTimerToggle = running => {
+    this.setState({
+      isWorking: this.state.currentSession === Session.POMODORO && running
+    });
+  };
+
   handleTaskCountChange = (taskCount, pomodoroCount) => {
     this.setState({ taskCount, pomodoroCount });
   };
@@ -69,7 +76,7 @@ class App extends Component {
       pomodoroCount,
       currentSession,
       pendingPomodoro,
-      timer,
+      isWorking,
       taskCount,
       infoModalOpen
     } = this.state;
@@ -81,7 +88,7 @@ class App extends Component {
         <AppNavbar
           title="Pomodori Story"
           isBreakTime={!isSessionPomodoro}
-          isWorking={!!timer && isSessionPomodoro}
+          isWorking={isWorking}
           onInfoClick={this.handleInfoModalToggle}
         />
         <InfoModal
@@ -113,10 +120,10 @@ class App extends Component {
                 onButtonClick={this.handleSetSession}
               />
               <Timer
-                currentSession={currentSession}
+                currentSessionValue={currentSession}
                 isPomodoro={isSessionPomodoro}
-                onTimerDone={this.onSessionEnd}
                 onTimerToggle={this.handleTimerToggle}
+                onTimerDone={this.onSessionEnd}
               />
               <Summary taskCount={taskCount} pomodoroCount={pomodoroCount} />
             </Col>
