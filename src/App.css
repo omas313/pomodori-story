@@ -154,7 +154,7 @@ section {
 }
 
 @media(min-width: 992px) {
-  .tasks-column {
+  .left-to-bottom-column {
     max-height: 75vh !important;
     overflow: auto;
   }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 import AppNavbar from './components/appNavbar';
 import InfoModal from './components/infoModal';
+import LeftToBottomCol from './components/leftToBottomCol';
+import RightToTopCol from './components/rightToTopCol';
 import SessionButtons from './components/sessionButtons';
 import Summary from './components/summary';
 import Tasks from './components/tasks';
@@ -93,23 +95,15 @@ class App extends Component {
         />
         <Container>
           <Row>
-            <Col
-              lg={{ size: 8, order: 1 }}
-              xs={{ size: 12, order: 2 }}
-              className="tasks-column"
-            >
+            <LeftToBottomCol>
               <Tasks
                 pendingPomodoro={pendingPomodoro}
                 onTasksChanged={this.handleTaskCountChange}
                 onPomodoroAssigned={this.handlePomodoroAssigned}
                 DEBUG_se_hack={this.handleSessionEnd}
               />
-            </Col>
-            <Col
-              lg={{ size: 4, order: 2 }}
-              xs={{ size: 12, order: 1 }}
-              className="timer-column"
-            >
+            </LeftToBottomCol>
+            <RightToTopCol>
               <SessionButtons
                 currentSession={currentSession}
                 session={Session}
@@ -122,7 +116,7 @@ class App extends Component {
                 onTimerDone={this.handleSessionEnd}
               />
               <Summary taskCount={taskCount} pomodoroCount={pomodoroCount} />
-            </Col>
+            </RightToTopCol>
           </Row>
         </Container>
       </React.Fragment>
