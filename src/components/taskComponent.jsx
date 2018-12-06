@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Row, Col, ListGroupItem, Badge } from 'reactstrap';
 import TaskInput from './taskInput';
 import TaskButtons from './taskButtons';
-import { taskType } from './../types/index';
+import { taskType } from '../types/index';
 
-class Task extends Component {
+class TaskComponent extends Component {
   state = {
     isEditing: false,
     newName: ''
@@ -19,14 +19,15 @@ class Task extends Component {
   handleEditSubmit = name => {
     const { task, onEdit } = this.props;
     onEdit(task._id, name);
-    this.setState({ editing: false });
+    this.setState({ isEditing: false });
   };
 
   handleChange = newName => {
     this.setState({ newName });
   };
 
-  getBadgeColor = () => (this.props.task.count === 0 ? 'secondary' : 'primary');
+  getBadgeColor = () =>
+    this.props.task.pomodori === 0 ? 'secondary' : 'primary';
 
   render() {
     const { isEditing, newName } = this.state;
@@ -53,7 +54,7 @@ class Task extends Component {
           </Col>
           <Col md="2" xs="1">
             <Badge color={this.getBadgeColor()} pill>
-              {task.count}
+              {task.pomodori}
             </Badge>
           </Col>
           <Col md="3" xs="3" className="text-right action-buttons">
@@ -72,7 +73,7 @@ class Task extends Component {
   }
 }
 
-Task.propTypes = {
+TaskComponent.propTypes = {
   task: taskType.isRequired,
   isActive: PropTypes.bool,
   onSetActive: PropTypes.func.isRequired,
@@ -80,4 +81,4 @@ Task.propTypes = {
   onEdit: PropTypes.func.isRequired
 };
 
-export default Task;
+export default TaskComponent;

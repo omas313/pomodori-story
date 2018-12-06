@@ -3,10 +3,8 @@ import { Container, Row, Col } from 'reactstrap';
 import SessionButtons from './components/sessionButtons';
 import Timer from './components/timer';
 import Tasks from './components/tasks';
-import TaskInput from './components/taskInput';
 import Summary from './components/summary';
 import AppNavbar from './components/appNavbar';
-import taskService from './services/taskService';
 import './App.css';
 import InfoModal from './components/infoModal';
 
@@ -19,31 +17,11 @@ const Session = {
 class App extends Component {
   state = {
     currentSession: Session.POMODORO,
-    tasks: [],
-    currentTask: null,
     pomodoroCount: 0,
+    pendingPomodoro: false,
+    taskCount: 0,
     infoModalOpen: false
   };
-
-  componentDidMount() {
-    this.initTasks();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { tasks } = this.state;
-    if (prevState.tasks !== tasks) taskService.save(tasks);
-  }
-
-  initTasks() {
-    const tasks = taskService.getAll() || [
-      { _id: '1', name: 'Untitled task', count: 0 }
-    ];
-    this.setState({
-      tasks,
-      currentTask: tasks[0],
-      pomodoroCount: tasks.reduce((acc, curr) => acc + curr.count, 0)
-    });
-  }
 
   onSessionEnd() {
     const { currentSession } = this.state;
@@ -53,102 +31,31 @@ class App extends Component {
   }
 
   onPomodoroFinished() {
-    const { pomodoroCount, tasks } = this.state;
+    const { pomodoroCount: oldPomodoroCount } = this.state;
 
-    if (tasks.length === 0) this.handleNewTask('Untitled task', 1);
-    else this.incrementTaskCounter();
-    const newPomodoroCount = pomodoroCount + 1;
+    const pomodoroCount = oldPomodoroCount + 1;
 
-    this.setState({ pomodoroCount: newPomodoroCount });
+    this.setState({
+      pomodoroCount,
+      pendingPomodoro: true
+    });
 
-    const longBreakTime = newPomodoroCount > 0 && newPomodoroCount % 4 === 0;
+    const longBreakTime = pomodoroCount > 0 && pomodoroCount % 4 === 0;
     this.handleSetSession(
       longBreakTime ? Session.LONG_BREAK : Session.SHORT_BREAK
     );
-  }
-
-  incrementTaskCounter() {
-    const tasks = [...this.state.tasks];
-    const index = tasks.indexOf(this.state.currentTask);
-    const task = { ...tasks[index] };
-    task.count++;
-    tasks[index] = task;
-    this.setState({ tasks, currentTask: tasks[index] });
-  }
-
-  // hacks for debugging
-  runCommand(command) {
-    switch (command) {
-      case 'es':
-        this.onSessionEnd();
-        break;
-      case 'po':
-        this.handleSetSession(Session.POMODORO);
-        break;
-      case 'sb':
-        this.handleSetSession(Session.SHORT_BREAK);
-        break;
-      case 'lb':
-        this.handleSetSession(Session.LONG_BREAK);
-        break;
-      default:
-        console.log('Unknown command: ' + command);
-    }
   }
 
   handleSetSession = session => {
     this.setState({ currentSession: session });
   };
 
-  handleSetActiveTask = task => {
-    this.setState({ currentTask: task });
+  handleTaskCountChange = (taskCount, pomodoroCount) => {
+    this.setState({ taskCount, pomodoroCount });
   };
 
-  handleNewTask = (name, count = 0) => {
-    if (name.startsWith('>>')) return this.runCommand(name.substring(2));
-
-    const tasks = [...this.state.tasks];
-    const task = {
-      name: name.trim(),
-      count,
-      _id: `${name.length}${Math.random() * 1000000}`
-    };
-    tasks.push(task);
-
-    this.setState({ tasks }, () => {
-      if (tasks.length === 1) this.handleSetActiveTask(task);
-    });
-  };
-
-  handleDeleteTask = task => {
-    const tasks = [...this.state.tasks];
-    const index = tasks.indexOf(task);
-    tasks.splice(index, 1);
-
-    const updates = {
-      tasks,
-      pomodoroCount:
-        tasks.length === 0
-          ? 0
-          : tasks.reduce((acc, curr) => acc + curr.count, 0)
-    };
-    if (task._id === this.state.currentTask._id) updates.currentTask = tasks[0];
-    this.setState(updates);
-  };
-
-  handleEditTask = (id, name) => {
-    const { tasks: oldTasks, currentTask } = this.state;
-
-    const tasks = [...oldTasks];
-    const index = tasks.findIndex(t => t._id === id);
-
-    const task = { ...tasks[index] };
-    task.name = name.trim();
-    tasks[index] = task;
-
-    this.setState({ tasks }, () => {
-      if (task._id === currentTask._id) this.setState({ currentTask: task });
-    });
+  handlePomodoroAssigned = () => {
+    if (this.state.pendingPomodoro) this.setState({ pendingPomodoro: false });
   };
 
   handleInfoModalToggle = () => {
@@ -161,9 +68,9 @@ class App extends Component {
     const {
       pomodoroCount,
       currentSession,
-      tasks,
-      currentTask,
+      pendingPomodoro,
       timer,
+      taskCount,
       infoModalOpen
     } = this.state;
 
@@ -188,17 +95,11 @@ class App extends Component {
               xs={{ size: 12, order: 2 }}
               className="tasks-column"
             >
-              <TaskInput
-                placeholder="Enter task here..."
-                onSubmit={this.handleNewTask}
-              />
               <Tasks
-                tasks={tasks}
-                currentTask={currentTask}
-                onSetActiveTask={this.handleSetActiveTask}
-                onAdd={this.handleNewTask}
-                onEdit={this.handleEditTask}
-                onDelete={this.handleDeleteTask}
+                pendingPomodoro={pendingPomodoro}
+                onTasksChanged={this.handleTaskCountChange}
+                onPomodoroAssigned={this.handlePomodoroAssigned}
+                DEBUG_se_hack={this.onSessionEnd.bind(this)}
               />
             </Col>
             <Col
@@ -215,8 +116,9 @@ class App extends Component {
                 currentSession={currentSession}
                 isPomodoro={isSessionPomodoro}
                 onTimerDone={this.onSessionEnd}
+                onTimerToggle={this.handleTimerToggle}
               />
-              <Summary taskCount={tasks.length} pomodoroCount={pomodoroCount} />
+              <Summary taskCount={taskCount} pomodoroCount={pomodoroCount} />
             </Col>
           </Row>
         </Container>
