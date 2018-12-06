@@ -105,7 +105,6 @@ class Timer extends Component {
           {time.toString()}
         </h3>
         {playSound && <Sound />}
-        <button onClick={() => this.setTime(0, 2)}>set</button>
       </React.Fragment>
     );
   }
