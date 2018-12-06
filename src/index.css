@@ -4,8 +4,17 @@ body {
   font-family: Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #fffaf0 !important;
-  color: #4e1a00;
+  background: #fff0f0 !important;
+  color: #800100;
+}
+
+.container.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.navbar-brand, .nav-link, .navbar-toggler-icon {
+  color: #EFF5DC !important;
 }
 
 .w-100 {
@@ -38,17 +47,19 @@ body {
 
 .btn-outline-primary {
   color: #EFF5DC !important;
-  border-color: #4e1a00 !important;
+  border-color: #800100 !important;
 }
 .btn-outline-primary:hover, .btn-outline-primary:active {
-  background-color: #ffbe59 !important;
+  background-color: #fff0f0 !important;
 }
 
 .list-group-item {
-  background-color: #fffaf0 !important;
-  border-color: #ffdaa0 !important;
+  background-color: #fff0f0 !important;
+  border-color: #ffbfbf !important;
   border-radius: 10px !important;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s, border-color 0.3s, display 0.3s;
+  animation: fadeIn 0.3s ease-in 0s 1;
+  -webkit-animation: fadeIn 0.3s ease-in 0s 1;
 }
 
 .list-group-item.active {
@@ -57,8 +68,8 @@ body {
 
 .list-group-item.active {
   color: #EFF5DC !important;
-  background-color: #ffa3155e !important;
-  border-color: #ffa3155e !important;
+  background-color: #ffbfbf !important;
+  border-color: #ffbfbf !important;
 }
 
 .list-group-item.col, .list-group-item.action-buttons {
@@ -66,16 +77,20 @@ body {
 }
 
 .list-group-item:hover {
-  background-color: #ffecce !important;
+  background-color: #fda7a7 !important;
 }
 
 .list-group-item.active {
   opacity: 1 !important;
 }
 
+.badge {
+  transition: background-color 0.3s;
+}
+
 .badge-primary {
   color: #EFF5DC !important;
-  background-color: #4e1a00 !important;
+  background-color: #db0504 !important;
 }
 
 .badge-secondary {
@@ -84,15 +99,33 @@ body {
 }
 
 .form-control {
-  color: #4e1a00 !important;
-  background-color: #fff6ee !important;
-  border: 1px solid #ffdda9 !important;
+  color: #800100 !important;
+  background-color: #fff0f0 !important;
+  border: 1px solid #ffbfbf !important;
+  font-size: 1.1rem !important;
   transition: background-color 0.3s, border-color 0.3s;
 }
 
 .form-control:focus {
-  color: #4e1a00 !important;
-  background-color: #fff6ee !important;
-  border-color: #4e1a00 !important;
+  color: #800100 !important;
+  background-color: #fff0f0 !important;
+  border-color: #db0504 !important;
   box-shadow: none !important;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
 }

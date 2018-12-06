@@ -1,5 +1,17 @@
-.navbar-bg {
-  background-color: #ff7700;
+nav {
+  background-color: #db0504;
+  margin-bottom: 2rem;
+  transition: background-color 1s;
+}
+
+nav.break-vibe {
+  background-color: #E84A07;
+  margin-bottom: 2rem;
+}
+
+nav.animate {
+  animation: colorize 10s ease-in-out 1s infinite;
+  -webkit-animation: colorize 10s ease-in-out 1s infinite;
 }
 
 section {
@@ -7,81 +19,143 @@ section {
   padding-left: 2rem !important;
 }
 
-.session-button {
+.task-name {
+  color: #4e1a00;
+  overflow: auto;
+  font-size: 1.1rem;
+}
+
+.session-buttons {
+  text-align: center;
+}
+
+.session-buttons button {
   color: #EFF5DC !important;
   width: 70px;
   height: 70px;
   margin: 3px;
-  background-color: #a94f00 !important;
-  border-color: #a94f00 !important;
+}
+.session-buttons button.pomodoro-button {
+  background-color: #800100 !important;
+  border-color: #800100 !important;
+}
+.session-buttons button.break-button {
+  background-color: #b93b05 !important;
+  border-color: #b93b05 !important;
 }
 
-.session-button.active {
-  background-color: #ff7700 !important;
-  border-color: #ff7700 !important;
+.session-buttons button.working {
+  background-color: #db0504 !important;
+  border-color: #db0504 !important;
+}
+.session-buttons button.break {
+  background-color: #E84A07 !important;
+  border-color: #E84A07 !important;
 }
 
-.session-button:hover {
-  background-color: #ff7700 !important;
-  border-color: #ff7700 !important;
+.session-buttons button.pomodoro-button:hover {
+  background-color: #db0504 !important;
+  border-color: #db0504 !important;
+}
+.session-buttons button.break-button:hover {
+  background-color: #E84A07 !important;
+  border-color: #E84A07 !important;
 }
 
-.session-button-img {
+.session-buttons button img {
   width: 30px;
   max-height: 35px;
 }
 
-.action-button {
+.action-button img {
   max-width: 20px;
 }
 
 .time {
   margin: 1rem 1rem 2rem 1rem;
   text-align: center;
-  font-size: 4rem;
-  color: #4e1a00;
+  font-size: 3rem;
+  transition: color 1s;
+}
+.time.working {
+  color: #db0504;
+}
+.time.break {
+  color: #E84A07;
 }
 
 .summary {
-  border-top: 1px solid #ff7700;
-  border-bottom: 1px solid #ff7700;
+  border-top: 1px solid #db0504;
+  border-bottom: 1px solid #db0504;
   padding: 0.6rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0 !important;
 }
 
-.task-name {
-  color: #4e1a00;
+.info-modal {
+  max-height: 80vh !important;
+  max-width: 80vw !important;
+  background-color: #EFF5DC !important;
+  margin: .5rem auto;
 }
 
+.info-modal a {
+  color: #db0504 !important;
+  text-decoration: none;
+}
+.info-modal a:hover {
+  color: #800100 !important;
+  text-decoration: none;
+}
+
+@keyframes colorize {
+  0% { background-color: #db0504; }
+  20% { background-color: #E84A07; }
+  60% { background-color: #ff9900; }
+  100% { background-color: #db0504; }
+}
+@-webkit-keyframes colorize {
+  0% { background-color: #db0504; }
+  20% { background-color: #E84A07; }
+  60% { background-color: #ff9900; }
+  100% { background-color: #db0504; }
+}
 
 @keyframes blink {
   50% {
-      opacity: 0.0;
-  }
-  }
-  @-webkit-keyframes blink {
-  50% {
-      opacity: 0.0;
+    opacity: 0.0;
   }
 }
+@-webkit-keyframes blink {
+  50% {
+    opacity: 0.0;
+  }
+}
+
 .blink {
   animation: blink 2s ease-in-out 0s infinite;
   -webkit-animation: blink 2s ease-in-out 0s infinite;
 }
 
-@media(max-width: 767.98px) {
+
+@media(max-width: 575.98px) {
   .time {
-    font-size: 5rem;
+    font-size: 3rem !important;
   }
 }
 
 @media(max-width: 991.98px) {
   .time {
-    font-size: 3rem;
+    font-size: 4rem;
   }
 
   .right-section, .left-section {
     margin: 1rem auto;
+  }
+}
+
+@media(min-width: 992px) {
+  .left-to-bottom-column {
+    max-height: 75vh !important;
+    overflow: auto;
   }
 }
