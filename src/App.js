@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import SessionButtons from './components/sessionButtons';
-import Timer from './components/timer';
-import Tasks from './components/tasks';
-import Summary from './components/summary';
 import AppNavbar from './components/appNavbar';
-import './App.css';
 import InfoModal from './components/infoModal';
+import SessionButtons from './components/sessionButtons';
+import Summary from './components/summary';
+import Tasks from './components/tasks';
+import Timer from './components/timer';
+import './App.css';
 
 const Session = {
   POMODORO: 25,
@@ -17,19 +17,12 @@ const Session = {
 class App extends Component {
   state = {
     currentSession: Session.POMODORO,
+    taskCount: 0,
     pomodoroCount: 0,
     pendingPomodoro: false,
-    taskCount: 0,
     isWorking: false,
     infoModalOpen: false
   };
-
-  onSessionEnd() {
-    const { currentSession } = this.state;
-
-    if (currentSession === Session.POMODORO) this.onPomodoroFinished();
-    else this.handleSetSession(Session.POMODORO);
-  }
 
   onPomodoroFinished() {
     const { pomodoroCount: oldPomodoroCount } = this.state;
@@ -40,16 +33,23 @@ class App extends Component {
       pomodoroCount,
       pendingPomodoro: true
     });
-
-    const longBreakTime = pomodoroCount > 0 && pomodoroCount % 4 === 0;
-    this.handleSetSession(
-      longBreakTime ? Session.LONG_BREAK : Session.SHORT_BREAK
-    );
+    this.handleSetSession(this.getBreakduration(pomodoroCount));
   }
 
-  handleSetSession = session => {
-    this.setState({ currentSession: session });
+  getBreakduration(pomodoroCount) {
+    return pomodoroCount > 0 && pomodoroCount % 4 === 0
+      ? Session.LONG_BREAK
+      : Session.SHORT_BREAK;
+  }
+
+  handleSessionEnd = () => {
+    const { currentSession } = this.state;
+
+    if (currentSession === Session.POMODORO) this.onPomodoroFinished();
+    else this.handleSetSession(Session.POMODORO);
   };
+
+  handleSetSession = session => this.setState({ currentSession: session });
 
   handleTimerToggle = running => {
     this.setState({
@@ -57,19 +57,15 @@ class App extends Component {
     });
   };
 
-  handleTaskCountChange = (taskCount, pomodoroCount) => {
+  handleTaskCountChange = (taskCount, pomodoroCount) =>
     this.setState({ taskCount, pomodoroCount });
-  };
 
   handlePomodoroAssigned = () => {
     if (this.state.pendingPomodoro) this.setState({ pendingPomodoro: false });
   };
 
-  handleInfoModalToggle = () => {
-    this.setState({
-      infoModalOpen: !this.state.infoModalOpen
-    });
-  };
+  handleInfoModalToggle = () =>
+    this.setState({ infoModalOpen: !this.state.infoModalOpen });
 
   render() {
     const {
@@ -106,7 +102,7 @@ class App extends Component {
                 pendingPomodoro={pendingPomodoro}
                 onTasksChanged={this.handleTaskCountChange}
                 onPomodoroAssigned={this.handlePomodoroAssigned}
-                DEBUG_se_hack={this.onSessionEnd.bind(this)}
+                DEBUG_se_hack={this.handleSessionEnd}
               />
             </Col>
             <Col
@@ -123,7 +119,7 @@ class App extends Component {
                 currentSessionValue={currentSession}
                 isPomodoro={isSessionPomodoro}
                 onTimerToggle={this.handleTimerToggle}
-                onTimerDone={this.onSessionEnd}
+                onTimerDone={this.handleSessionEnd}
               />
               <Summary taskCount={taskCount} pomodoroCount={pomodoroCount} />
             </Col>
