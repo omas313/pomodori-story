@@ -39,21 +39,23 @@ class Timer extends Component {
 
   handleTimerToggle = () => {
     const { running } = this.state;
-    const { onTimerToggle } = this.props;
 
     if (running) this.stopTimer();
     else this.startTimer();
-
-    onTimerToggle(!running);
   };
 
   stopTimer() {
-    clearInterval(this.state.timer);
+    const { timer } = this.state;
+    const { onTimerStop } = this.props;
+
+    clearInterval(timer);
     this.setState({ timer: null, running: false });
+    onTimerStop();
   }
 
   startTimer() {
     const { running } = this.state;
+    const { onTimerStart } = this.props;
 
     if (running) this.stopTimer();
 
@@ -61,6 +63,7 @@ class Timer extends Component {
       timer: setInterval(this.handleSecondPassed, 1000),
       running: true
     });
+    onTimerStart();
   }
 
   onNewSession = () => {
@@ -111,7 +114,8 @@ class Timer extends Component {
 Time.propTypes = {
   currentSessionValue: PropTypes.number.isRequired,
   isPomodoro: PropTypes.bool.isRequired,
-  onTimerToggle: PropTypes.func.isRequired,
+  onTimerStart: PropTypes.func.isRequired,
+  onTimerStop: PropTypes.func.isRequired,
   onTimerDone: PropTypes.func.isRequired
 };
 

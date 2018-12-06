@@ -53,11 +53,13 @@ class App extends Component {
 
   handleSetSession = session => this.setState({ currentSession: session });
 
-  handleTimerToggle = running => {
+  handleTimerStart = () => {
     this.setState({
-      isWorking: this.state.currentSession === Session.POMODORO && running
+      isWorking: this.state.currentSession === Session.POMODORO
     });
   };
+
+  handleTimerStop = () => this.setState({ isWorking: false });
 
   handleTaskCountChange = (taskCount, pomodoroCount) =>
     this.setState({ taskCount, pomodoroCount });
@@ -112,7 +114,8 @@ class App extends Component {
               <Timer
                 currentSessionValue={currentSession}
                 isPomodoro={isSessionPomodoro}
-                onTimerToggle={this.handleTimerToggle}
+                onTimerStart={this.handleTimerStart}
+                onTimerStop={this.handleTimerStop}
                 onTimerDone={this.handleSessionEnd}
               />
               <Summary taskCount={taskCount} pomodoroCount={pomodoroCount} />
