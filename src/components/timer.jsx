@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Time from '../models/time';
+import Sound from './sound';
 
 class Timer extends Component {
   state = {
@@ -22,13 +23,9 @@ class Timer extends Component {
 
   handleSecondPassed = () => {
     const { time } = this.state;
-    const { onTimerDone } = this.props;
     const nextTime = { ...time };
 
-    if (time.sec === 0 && time.min === 0) {
-      this.stopTimer();
-      return onTimerDone();
-    }
+    if (time.sec === 0 && time.min === 0) return this.timerFinished();
 
     if (time.sec === 0) {
       nextTime.min = time.min - 1;
@@ -71,8 +68,22 @@ class Timer extends Component {
     this.startTimer();
   };
 
+  timerFinished = () => {
+    const { onTimerDone } = this.props;
+
+    this.stopTimer();
+    console.log('playSound to true');
+    this.setState({ playSound: true }, () => {
+      setTimeout(() => {
+        this.setState({ playSound: false });
+        console.log('playSound to false');
+      }, 5000);
+    });
+    onTimerDone();
+  };
+
   render() {
-    const { time, timer } = this.state;
+    const { time, timer, playSound } = this.state;
     const { currentSessionValue, isPomodoro } = this.props;
 
     const isPaused =
@@ -86,9 +97,13 @@ class Timer extends Component {
     classes += blink + color;
 
     return (
-      <h3 className={classes} onClick={this.handleTimerToggle}>
-        {time.toString()}
-      </h3>
+      <React.Fragment>
+        <h3 className={classes} onClick={this.handleTimerToggle}>
+          {time.toString()}
+        </h3>
+        {playSound && <Sound />}
+        <button onClick={() => this.setTime(0, 2)}>set</button>
+      </React.Fragment>
     );
   }
 }
