@@ -75,33 +75,39 @@ class Timer extends Component {
     const { onTimerDone } = this.props;
 
     this.stopTimer();
-    console.log('playSound to true');
-    this.setState({ playSound: true }, () => {
-      setTimeout(() => {
-        this.setState({ playSound: false });
-        console.log('playSound to false');
-      }, 5000);
-    });
+    this.playSound();
     onTimerDone();
   };
 
-  render() {
-    const { time, timer, playSound } = this.state;
-    const { currentSessionValue, isPomodoro } = this.props;
+  playSound() {
+    this.setState({ playSound: true }, () => {
+      setTimeout(() => this.setState({ playSound: false }), 5000);
+    });
+  }
 
-    const isPaused =
+  isPaused = () => {
+    const { time, timer } = this.state;
+    const { currentSessionValue } = this.props;
+
+    return (
       !timer &&
       time.min !== currentSessionValue &&
-      (time.min !== 0 && time.sec !== 0);
+      (time.min !== 0 && time.sec !== 0)
+    );
+  };
+
+  render() {
+    const { time, playSound } = this.state;
+    const { isPomodoro } = this.props;
 
     let classes = 'time clickable';
-    const blink = isPaused ? ' blink' : '',
+    const blink = this.isPaused() ? ' blink' : '',
       color = isPomodoro ? ' working' : ' break';
     classes += blink + color;
 
     return (
       <React.Fragment>
-        <h3 className={classes} onClick={this.handleTimerToggle}>
+        <h3 id="time" className={classes} onClick={this.handleTimerToggle}>
           {time.toString()}
         </h3>
         {playSound && <Sound />}
