@@ -5,16 +5,13 @@ import TaskComponent from './taskComponent';
 import { taskType } from '../types';
 
 class TaskList extends Component {
-  state = {};
+  isActive(taskId) {
+    const { currentTask } = this.props;
+    return currentTask && currentTask._id === taskId;
+  }
 
   render() {
-    const {
-      currentTask,
-      tasks,
-      onSetActiveTask,
-      onDelete,
-      onEdit
-    } = this.props;
+    const { tasks, onSetActiveTask, onDelete, onEdit } = this.props;
 
     return (
       <ListGroup flush>
@@ -24,7 +21,7 @@ class TaskList extends Component {
             <TaskComponent
               key={task._id}
               task={task}
-              isActive={currentTask && currentTask._id === task._id}
+              isActive={this.isActive(task._id)}
               onSetActive={onSetActiveTask}
               onDelete={onDelete}
               onEdit={onEdit}
