@@ -7,11 +7,11 @@ const Summary = ({ taskCount, pomodoroCount }) => {
     <Row className="summary">
       <Col className="text-center">
         <p className="text-bold">Tasks</p>
-        <p>{taskCount}</p>
+        <p id="summary-task-count">{taskCount}</p>
       </Col>
       <Col className="text-center">
         <p className="text-bold">Pomodori</p>
-        <p>{pomodoroCount}</p>
+        <p id="summary-pomodoro-count">{pomodoroCount}</p>
       </Col>
     </Row>
   );

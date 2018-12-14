@@ -10,6 +10,7 @@ class TaskButtons extends Component {
     return (
       <React.Fragment>
         <Button
+          id="task-edit-button"
           className="action-button"
           size="sm"
           color="primary"
@@ -19,6 +20,7 @@ class TaskButtons extends Component {
           <img src="./img/edit.svg" alt="Edit" />
         </Button>
         <Button
+          id="task-delete-button"
           className="action-button"
           size="sm"
           color="primary"
@@ -36,6 +38,7 @@ class TaskButtons extends Component {
 
     return (
       <Button
+        id="task-submit-edit-button"
         className="action-button"
         size="sm"
         color="primary"

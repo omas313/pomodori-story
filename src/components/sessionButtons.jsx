@@ -21,6 +21,7 @@ class SessionButtons extends Component {
     return (
       <div className="session-buttons">
         <Button
+          id="pomodoro-session-button"
           className={this.getButtonClasses(session.POMODORO)}
           onClick={() => onButtonClick(session.POMODORO)}
         >
@@ -31,6 +32,7 @@ class SessionButtons extends Component {
           />
         </Button>
         <Button
+          id="short-break-session-button"
           className={this.getButtonClasses(session.SHORT_BREAK)}
           onClick={() => onButtonClick(session.SHORT_BREAK)}
         >
@@ -41,6 +43,7 @@ class SessionButtons extends Component {
           />
         </Button>
         <Button
+          id="long-break-session-button"
           className={this.getButtonClasses(session.LONG_BREAK)}
           onClick={() => onButtonClick(session.LONG_BREAK)}
         >

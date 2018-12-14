@@ -37,7 +37,11 @@ class AppNavbar extends Component {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink className="clickable" onClick={onInfoClick}>
+                <NavLink
+                  id="info-nav-link"
+                  className="clickable"
+                  onClick={onInfoClick}
+                >
                   Info
                 </NavLink>
               </NavItem>
