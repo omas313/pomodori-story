@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary renders pomodoroCount prop 1`] = `"0"`;
+
+exports[`Summary renders taskCount prop 1`] = `"0"`;
