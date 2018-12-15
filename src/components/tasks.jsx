@@ -23,19 +23,24 @@ class Tasks extends Component {
   }
 
   initTasks() {
-    const tasks = taskService.getAll() || [Task.getDefaultTask()];
+    let tasks = taskService.getAll();
+    if (!tasks || tasks.length === 0) tasks = [Task.getDefaultTask()];
 
     this.setState({ tasks, currentTask: tasks[0] });
+  }
+
+  getTotalPomodori() {
+    const { tasks } = this.state;
+    return tasks.length === 0
+      ? 0
+      : tasks.reduce((t, curr) => t + curr.pomodori, 0);
   }
 
   onTasksChanged() {
     const { tasks } = this.state;
     const { onTasksChanged } = this.props;
 
-    const totalpomodori =
-      tasks.length === 0 ? 0 : tasks.reduce((t, curr) => t + curr.pomodori, 0);
-
-    onTasksChanged(tasks.length, totalpomodori);
+    onTasksChanged(tasks.length, this.getTotalPomodori());
     taskService.save(tasks);
   }
 
