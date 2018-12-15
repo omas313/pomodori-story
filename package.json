@@ -1,5 +1,6 @@
 {
-  "name": "pomodoro",
+  "name": "pomodori-story",
+  "homepage": "http://omas313.github.io/react-pomodoro",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -13,7 +14,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,6 +29,7 @@
   ],
   "devDependencies": {
     "enzyme": "^3.7.0",
-    "enzyme-adapter-react-16": "^1.7.0"
+    "enzyme-adapter-react-16": "^1.7.0",
+    "gh-pages": "^2.0.1"
   }
 }
