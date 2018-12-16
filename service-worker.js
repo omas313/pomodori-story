@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/react-pomodoro/precache-manifest.7d57a136bdb1ea4d93ac1d2c010465ea.js"
+  "/pomodori-story/precache-manifest.1ba1533041eb23360ea20beeab743d94.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/react-pomodoro/index.html", {
+workbox.routing.registerNavigationRoute("/pomodori-story/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
