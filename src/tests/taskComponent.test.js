@@ -2,10 +2,10 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Col, ListGroupItem } from 'reactstrap';
-import TaskComponent from './taskComponent';
-import TaskInput from './taskInput';
-import TaskButtons from './taskButtons';
-import Task from './../models/task';
+import TaskComponent from '../components/taskComponent';
+import TaskInput from '../components/taskInput';
+import TaskButtons from '../components/taskButtons';
+import Task from '../models/task';
 
 configure({ adapter: new Adapter() });
 

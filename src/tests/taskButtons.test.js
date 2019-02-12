@@ -2,8 +2,8 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Button } from 'reactstrap';
-import TaskButtons from './taskButtons';
-import Task from './../models/task';
+import TaskButtons from '../components/taskButtons';
+import Task from '../models/task';
 
 configure({ adapter: new Adapter() });
 

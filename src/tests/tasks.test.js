@@ -1,10 +1,10 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Tasks from './tasks';
-import TaskInput from './taskInput';
-import TaskList from './taskList';
-import Task from './../models/task';
+import Tasks from '../components/tasks';
+import TaskInput from '../components/taskInput';
+import TaskList from '../components/taskList';
+import Task from '../models/task';
 import taskService from '../services/taskService';
 
 configure({ adapter: new Adapter() });

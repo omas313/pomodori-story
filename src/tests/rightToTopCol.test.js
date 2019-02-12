@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Col } from 'reactstrap';
-import RightToTopCol from './rightToTopCol';
+import RightToTopCol from '../components/rightToTopCol';
 
 configure({ adapter: new Adapter() });
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Timer from './timer';
-import Sound from './sound';
-import Time from './../models/time';
+import Timer from '../components/timer';
+import Sound from '../components/sound';
+import Time from '../models/time';
 
 configure({ adapter: new Adapter() });
 

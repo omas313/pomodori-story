@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Input, FormGroup } from 'reactstrap';
-import TaskInput from './taskInput';
+import TaskInput from '../components/taskInput';
 
 configure({ adapter: new Adapter() });
 

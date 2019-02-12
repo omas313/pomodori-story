@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Button } from 'reactstrap';
-import SessionButtons from './sessionButtons';
+import SessionButtons from '../components/sessionButtons';
 
 configure({ adapter: new Adapter() });
 

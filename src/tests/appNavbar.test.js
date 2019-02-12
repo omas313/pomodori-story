@@ -1,14 +1,8 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {
-  Collapse,
-  Navbar,
-  NavbarBrand,
-  NavLink,
-  NavbarToggler
-} from 'reactstrap';
-import AppNavbar from './appNavbar';
+import { Collapse, Navbar, NavbarBrand, NavbarToggler } from 'reactstrap';
+import AppNavbar from '../components/appNavbar';
 
 configure({ adapter: new Adapter() });
 

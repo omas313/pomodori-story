@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Row, Col } from 'reactstrap';
-import Summary from './summary';
+import Summary from '../components/summary';
 
 configure({ adapter: new Adapter() });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Col } from 'reactstrap';
-import LeftToBottomCol from './leftToBottomCol';
+import LeftToBottomCol from '../components/leftToBottomCol';
 
 configure({ adapter: new Adapter() });
 

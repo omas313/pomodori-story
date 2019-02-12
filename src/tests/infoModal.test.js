@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import InfoModal from './infoModal';
+import InfoModal from '../components/infoModal';
 
 configure({ adapter: new Adapter() });
 
