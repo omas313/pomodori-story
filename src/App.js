@@ -8,13 +8,8 @@ import SessionButtons from './components/sessionButtons';
 import Summary from './components/summary';
 import Tasks from './components/tasks';
 import Timer from './components/timer';
+import Session from './models/session';
 import './App.css';
-
-const Session = {
-  POMODORO: 25,
-  SHORT_BREAK: 5,
-  LONG_BREAK: 10
-};
 
 class App extends Component {
   state = {
@@ -35,13 +30,7 @@ class App extends Component {
       pomodoroCount,
       pendingPomodoro: true
     });
-    this.handleSetSession(this.getBreakduration(pomodoroCount));
-  }
-
-  getBreakduration(pomodoroCount) {
-    return pomodoroCount > 0 && pomodoroCount % 4 === 0
-      ? Session.LONG_BREAK
-      : Session.SHORT_BREAK;
+    this.handleSetSession(Session.getBreakduration(pomodoroCount));
   }
 
   handleSessionEnd = () => {
@@ -108,7 +97,6 @@ class App extends Component {
             <RightToTopCol>
               <SessionButtons
                 currentSession={currentSession}
-                session={Session}
                 onButtonClick={this.handleSetSession}
               />
               <Timer
