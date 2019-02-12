@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row } from 'reactstrap';
 import AppNavbar from './components/appNavbar';
 import InfoModal from './components/infoModal';
+import SettingsModal from './components/settingsModal';
 import LeftToBottomCol from './components/leftToBottomCol';
 import RightToTopCol from './components/rightToTopCol';
 import SessionButtons from './components/sessionButtons';
@@ -10,16 +11,31 @@ import Tasks from './components/tasks';
 import Timer from './components/timer';
 import Session from './models/session';
 import './App.css';
+import settingsService from './services/settingsService';
 
 class App extends Component {
   state = {
-    currentSession: Session.POMODORO,
+    currentSession: 0,
     taskCount: 0,
     pomodoroCount: 0,
     pendingPomodoro: false,
     isWorking: false,
-    infoModalOpen: false
+    infoModalOpen: false,
+    settingsModalOpen: false,
+    timersInitialized: false
   };
+
+  componentDidMount() {
+    this.initTimers();
+  }
+
+  initTimers() {
+    const timers = settingsService.getTimers();
+    Session.setTimers(timers);
+    this.setState({ currentSession: Session.POMODORO }, () =>
+      this.setState({ timersInitialized: true })
+    );
+  }
 
   onPomodoroFinished() {
     const { pomodoroCount: oldPomodoroCount } = this.state;
@@ -60,6 +76,9 @@ class App extends Component {
   handleInfoModalToggle = () =>
     this.setState({ infoModalOpen: !this.state.infoModalOpen });
 
+  handleSettingsModalToggle = () =>
+    this.setState({ settingsModalOpen: !this.state.settingsModalOpen });
+
   render() {
     const {
       pomodoroCount,
@@ -67,7 +86,9 @@ class App extends Component {
       pendingPomodoro,
       isWorking,
       taskCount,
-      infoModalOpen
+      infoModalOpen,
+      settingsModalOpen,
+      timersInitialized
     } = this.state;
 
     const isSessionPomodoro = currentSession === Session.POMODORO;
@@ -79,10 +100,15 @@ class App extends Component {
           isBreakTime={!isSessionPomodoro}
           isWorking={isWorking}
           onInfoClick={this.handleInfoModalToggle}
+          onSettingsClick={this.handleSettingsModalToggle}
         />
         <InfoModal
           isOpen={infoModalOpen}
           onToggle={this.handleInfoModalToggle}
+        />
+        <SettingsModal
+          isOpen={settingsModalOpen}
+          onToggle={this.handleSettingsModalToggle}
         />
         <Container>
           <Row>
@@ -102,6 +128,7 @@ class App extends Component {
               <Timer
                 currentSessionValue={currentSession}
                 isPomodoro={isSessionPomodoro}
+                startOnChange={timersInitialized}
                 onTimerStart={this.handleTimerStart}
                 onTimerStop={this.handleTimerStop}
                 onTimerDone={this.handleSessionEnd}

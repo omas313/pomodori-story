@@ -67,8 +67,10 @@ class Timer extends Component {
   }
 
   onNewSession = () => {
-    this.setTime(this.props.currentSessionValue, 0);
-    this.startTimer();
+    const { currentSessionValue, startOnChange } = this.props;
+
+    this.setTime(currentSessionValue, 0);
+    if (startOnChange) this.startTimer();
   };
 
   timerFinished = () => {
@@ -119,6 +121,7 @@ class Timer extends Component {
 Time.propTypes = {
   currentSessionValue: PropTypes.number.isRequired,
   isPomodoro: PropTypes.bool.isRequired,
+  startOnChange: PropTypes.bool.isRequired,
   onTimerStart: PropTypes.func.isRequired,
   onTimerStop: PropTypes.func.isRequired,
   onTimerDone: PropTypes.func.isRequired

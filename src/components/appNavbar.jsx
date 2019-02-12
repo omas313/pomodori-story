@@ -23,7 +23,13 @@ class AppNavbar extends Component {
 
   render() {
     const { isOpen } = this.state;
-    const { title, isBreakTime, isWorking, onInfoClick } = this.props;
+    const {
+      title,
+      isBreakTime,
+      isWorking,
+      onInfoClick,
+      onSettingsClick
+    } = this.props;
 
     const classes = `${isBreakTime ? 'break-vibe' : ''} ${
       isWorking ? 'animate' : ''
@@ -43,6 +49,15 @@ class AppNavbar extends Component {
                   onClick={onInfoClick}
                 >
                   Info
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  id="settings-nav-link"
+                  className="clickable"
+                  onClick={onSettingsClick}
+                >
+                  Settings
                 </NavLink>
               </NavItem>
             </Nav>
