@@ -85,17 +85,15 @@ class Tasks extends Component {
   handleDeleteTask = task => {
     const { tasks: oldTasks, currentTask } = this.state;
 
-    if (
-      oldTasks.length === 1 &&
-      oldTasks[0].name === Task.getDefaultTask().name
-    )
-      return;
+    if (oldTasks.length <= 1) {
+      const newTask = Task.getDefaultTask();
+      return this.setState({ tasks: [newTask], currentTask: newTask });
+    }
 
     let tasks = [...oldTasks];
     const updates = {};
 
     tasks.splice(tasks.indexOf(task), 1);
-    if (tasks.length === 0) tasks = [Task.getDefaultTask()];
 
     updates.tasks = tasks;
     if (!currentTask || task._id === currentTask._id || tasks.length === 1)
