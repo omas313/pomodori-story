@@ -13,7 +13,7 @@ const InfoModal = ({ isOpen, onToggle }) => {
         <h5>What is this website?</h5>
         <p>
           It is a timer web application I developed to implement the Pomodoro
-          Technique which also includes helpful task tracking.
+          Technique.
         </p>
 
         <h5>The Pomodoro Technique</h5>

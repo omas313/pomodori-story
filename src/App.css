@@ -107,6 +107,10 @@ section {
   text-decoration: none;
 }
 
+.settings-submit-button-container {
+  text-align-last: right;
+}
+
 @keyframes colorize {
   0% { background-color: #db0504; }
   20% { background-color: #E84A07; }

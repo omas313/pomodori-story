@@ -12,14 +12,17 @@ class RangeInput extends Component {
   }
 
   handleChange = ({ currentTarget: input }) => {
-    const { name, onChange } = this.props;
+    const { name, min, max, onChange } = this.props;
+
+    if (input.value < min || input.value > max) return;
+
     onChange(name, Number(input.value));
     this.setState({ value: input.value });
   };
 
   render() {
     const { value } = this.state;
-    const { name, label } = this.props;
+    const { name, label, min, max } = this.props;
 
     return (
       <FormGroup>
@@ -30,8 +33,8 @@ class RangeInput extends Component {
           <Col>
             <Input
               type="number"
-              min="1"
-              max="120"
+              min={min}
+              max={max}
               name={name}
               value={value}
               onChange={this.handleChange}

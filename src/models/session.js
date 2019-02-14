@@ -2,12 +2,19 @@ export default class Session {
   static POMODORO = 25;
   static SHORT_BREAK = 5;
   static LONG_BREAK = 10;
+  static TIMER_MIN = 1;
+  static TIMER_MAX = 120;
 
-  static setTimers(timers) {
+  static validTimers = timers =>
+    !Object.keys(timers).some(
+      k => timers[k] < Session.TIMER_MIN || timers[k] > Session.TIMER_MAX
+    );
+
+  static setTimers = timers => {
     if (timers.pomodoro !== 0) Session.POMODORO = timers.pomodoro;
     if (timers.shortBreak !== 0) Session.SHORT_BREAK = timers.shortBreak;
     if (timers.longBreak !== 0) Session.LONG_BREAK = timers.longBreak;
-  }
+  };
 
   static getTimers = () => {
     return {

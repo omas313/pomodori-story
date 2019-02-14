@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap';
 import RangeInput from './rangeInput';
 import Session from './../models/session';
 import settingsService from '../services/settingsService';
@@ -14,6 +14,10 @@ class SettingsModal extends Component {
     }
   };
 
+  componentDidMount() {
+    this.setState({ timers: Session.getTimers() });
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.isOpen && !this.props.isOpen) this.save();
   }
@@ -25,11 +29,16 @@ class SettingsModal extends Component {
   };
 
   save() {
-    Session.setTimers(this.state.timers);
-    settingsService.saveTimers(Session.getTimers());
+    const { timers } = this.state;
+
+    if (!Session.validTimers(timers)) return;
+
+    Session.setTimers(timers);
+    settingsService.saveTimers(timers);
   }
 
   render() {
+    const { timers } = this.state;
     const { isOpen, onToggle } = this.props;
 
     return (
@@ -42,21 +51,37 @@ class SettingsModal extends Component {
           <RangeInput
             name="pomodoro"
             label="Pomodoro"
-            default={Session.POMODORO}
+            min={Session.TIMER_MIN}
+            max={Session.TIMER_MAX}
+            default={timers.pomodoro}
             onChange={this.handleTimerChange}
           />
           <RangeInput
             name="shortBreak"
             label="Short Break"
-            default={Session.SHORT_BREAK}
+            min={Session.TIMER_MIN}
+            max={Session.TIMER_MAX}
+            default={timers.shortBreak}
             onChange={this.handleTimerChange}
           />
           <RangeInput
             name="longBreak"
             label="Long Break"
-            default={Session.LONG_BREAK}
+            min={Session.TIMER_MIN}
+            max={Session.TIMER_MAX}
+            default={timers.longBreak}
             onChange={this.handleTimerChange}
           />
+          <div className="settings-submit-button-container">
+            <Button
+              id="settings-submit-button"
+              className="action-button"
+              color="danger"
+              onClick={onToggle}
+            >
+              Submit
+            </Button>
+          </div>
         </ModalBody>
       </Modal>
     );
