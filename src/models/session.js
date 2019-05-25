@@ -28,4 +28,20 @@ export default class Session {
     pomodori > 0 && pomodori % 4 === 0
       ? Session.LONG_BREAK
       : Session.SHORT_BREAK;
+
+  static getTextFromTime = time => {
+    switch (time) {
+      case Session.POMODORO:
+        return 'Pomodoro';
+
+      case Session.SHORT_BREAK:
+        return 'Break (S)';
+
+      case Session.LONG_BREAK:
+        return 'Break (L)';
+
+      default:
+        return '';
+    }
+  };
 }

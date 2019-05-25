@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Time from '../models/time';
 import Sound from './sound';
+import Title from './../models/title';
 
 class Timer extends Component {
   state = {
@@ -19,7 +20,10 @@ class Timer extends Component {
       this.onNewSession();
   }
 
-  setTime = (min, sec) => this.setState({ time: new Time(min, sec) });
+  setTime = (min, sec) =>
+    this.setState({ time: new Time(min, sec) }, () =>
+      Title.setTime(this.state.time.toString())
+    );
 
   handleSecondPassed = () => {
     const { time } = this.state;
@@ -37,29 +41,31 @@ class Timer extends Component {
     this.setTime(nextTime.min, nextTime.sec);
   };
 
-  handleTimerToggle = () => {
+  handleTimerToggle = async () => {
     const { running } = this.state;
 
-    if (running) this.stopTimer();
-    else this.startTimer();
+    if (running) await this.stopTimer();
+    else await this.startTimer();
+
+    Title.setState(this.isPaused());
   };
 
-  stopTimer() {
+  async stopTimer() {
     const { timer } = this.state;
     const { onTimerStop } = this.props;
 
     clearInterval(timer);
-    this.setState({ timer: null, running: false });
+    await this.setState({ timer: null, running: false });
     onTimerStop();
   }
 
-  startTimer() {
+  async startTimer() {
     const { running } = this.state;
     const { onTimerStart } = this.props;
 
-    if (running) this.stopTimer();
+    if (running) await this.stopTimer();
 
-    this.setState({
+    await this.setState({
       timer: setInterval(this.handleSecondPassed, 1000),
       running: true
     });

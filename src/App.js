@@ -12,6 +12,7 @@ import Timer from './components/timer';
 import Session from './models/session';
 import './App.css';
 import settingsService from './services/settingsService';
+import Title from './models/title';
 
 class App extends Component {
   state = {
@@ -25,16 +26,22 @@ class App extends Component {
     timersInitialized: false
   };
 
-  componentDidMount() {
-    this.initTimers();
+  async componentDidMount() {
+    await this.initTimers();
+    this.initTitle();
   }
 
-  initTimers() {
+  async initTimers() {
     const timers = settingsService.getTimers();
     Session.setTimers(timers);
-    this.setState({ currentSession: Session.POMODORO }, () =>
+    await this.setState({ currentSession: Session.POMODORO }, () =>
       this.setState({ timersInitialized: true })
     );
+  }
+
+  initTitle() {
+    const { currentSession } = this.state;
+    Title.setSession(Session.getTextFromTime(currentSession));
   }
 
   onPomodoroFinished() {
@@ -56,7 +63,10 @@ class App extends Component {
     else this.handleSetSession(Session.POMODORO);
   };
 
-  handleSetSession = session => this.setState({ currentSession: session });
+  handleSetSession = session =>
+    this.setState({ currentSession: session }, () =>
+      Title.setSession(Session.getTextFromTime(this.state.currentSession))
+    );
 
   handleTimerStart = () => {
     this.setState({
