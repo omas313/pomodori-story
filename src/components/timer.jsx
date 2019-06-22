@@ -8,7 +8,8 @@ class Timer extends Component {
   state = {
     running: false,
     time: new Time(0, 0),
-    timer: null
+    timer: null,
+    playSound: false
   };
 
   componentDidMount() {
@@ -118,7 +119,7 @@ class Timer extends Component {
         <h3 id="time" className={classes} onClick={this.handleTimerToggle}>
           {time.toString()}
         </h3>
-        {playSound && <Sound />}
+        <Sound play={playSound} />
       </React.Fragment>
     );
   }
