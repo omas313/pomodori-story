@@ -3,6 +3,7 @@ const timersKeys = {
   shortBreak: 'sb',
   longBreak: 'lb'
 };
+const overtimeKey = 'overtime';
 
 function getTimers() {
   const values = Object.keys(timersKeys).map(k =>
@@ -21,7 +22,20 @@ function saveTimers(timers) {
   localStorage.setItem(timersKeys.longBreak, timers.longBreak);
 }
 
+function getOvertime() {
+  const value = localStorage.getItem(overtimeKey);
+  if (value === null) return false;
+  return value.toString() === "true";
+}
+
+function setOvertime(value) {
+  if (value === null) value = false;
+  localStorage.setItem(overtimeKey, value.toString() === "true");
+}
+
 export default {
   getTimers,
-  saveTimers
+  saveTimers,
+  getOvertime,
+  setOvertime
 };

@@ -23,20 +23,29 @@ class App extends Component {
     isWorking: false,
     infoModalOpen: false,
     settingsModalOpen: false,
-    timersInitialized: false
+    initCompleted: false
   };
 
   async componentDidMount() {
-    await this.initTimers();
-    this.initTitle();
+    await this.initSettings();
   }
 
-  async initTimers() {
+  async initSettings() {
+    this.initTimers();
+    this.initOtherSettings();
+    this.initTitle();
+    await this.setState({ currentSession: Session.POMODORO },
+      () => this.setState({ initCompleted: true }))
+  }
+
+  initTimers() {
     const timers = settingsService.getTimers();
     Session.setTimers(timers);
-    await this.setState({ currentSession: Session.POMODORO }, () =>
-      this.setState({ timersInitialized: true })
-    );
+  }
+
+  initOtherSettings() {
+    const overtime = settingsService.getOvertime();
+    Session.setOvertime(overtime);
   }
 
   initTitle() {
@@ -98,7 +107,7 @@ class App extends Component {
       taskCount,
       infoModalOpen,
       settingsModalOpen,
-      timersInitialized
+      initCompleted
     } = this.state;
 
     const isSessionPomodoro = currentSession === Session.POMODORO;
@@ -116,10 +125,12 @@ class App extends Component {
           isOpen={infoModalOpen}
           onToggle={this.handleInfoModalToggle}
         />
-        <SettingsModal
-          isOpen={settingsModalOpen}
-          onToggle={this.handleSettingsModalToggle}
-        />
+        {initCompleted && (
+          <SettingsModal
+            isOpen={settingsModalOpen}
+            onToggle={this.handleSettingsModalToggle}
+          />
+        )}
         <Container>
           <Row>
             <LeftToBottomCol>
@@ -138,7 +149,7 @@ class App extends Component {
               <Timer
                 currentSessionValue={currentSession}
                 isPomodoro={isSessionPomodoro}
-                startOnChange={timersInitialized}
+                startOnChange={initCompleted}
                 onTimerStart={this.handleTimerStart}
                 onTimerStop={this.handleTimerStop}
                 onTimerDone={this.handleSessionEnd}

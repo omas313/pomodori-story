@@ -4,6 +4,7 @@ import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap';
 import RangeInput from './rangeInput';
 import Session from './../models/session';
 import settingsService from '../services/settingsService';
+import Checkbox from './checkbox';
 
 class SettingsModal extends Component {
   state = {
@@ -11,11 +12,15 @@ class SettingsModal extends Component {
       pomodoro: 0,
       shortBreak: 0,
       longBreak: 0
-    }
+    },
+    overtime: false
   };
 
   componentDidMount() {
-    this.setState({ timers: Session.getTimers() });
+    this.setState({
+      timers: Session.getTimers(),
+      overtime: Session.getOvertime()
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -28,17 +33,23 @@ class SettingsModal extends Component {
     this.setState({ timers });
   };
 
+  handleOvertimeChange = value => {
+    this.setState({ overtime: value });
+  };
+
   save() {
-    const { timers } = this.state;
+    const { timers, overtime } = this.state;
 
     if (!Session.validTimers(timers)) return;
 
     Session.setTimers(timers);
     settingsService.saveTimers(timers);
+    Session.setOvertime(overtime);
+    settingsService.setOvertime(overtime);
   }
 
   render() {
-    const { timers } = this.state;
+    const { timers, overtime } = this.state;
     const { isOpen, onToggle } = this.props;
 
     return (
@@ -71,6 +82,11 @@ class SettingsModal extends Component {
             max={Session.TIMER_MAX}
             default={timers.longBreak}
             onChange={this.handleTimerChange}
+          />
+          <Checkbox
+            label="Overtime"
+            default={overtime}
+            onChange={this.handleOvertimeChange}
           />
           <div className="settings-submit-button-container">
             <Button

@@ -7,7 +7,7 @@ export default class Sound extends Component {
   }
 
   componentDidMount() {
-    this.audioRef.current.volume = 0.3;
+    this.audioRef.current.volume = 0.2;
   }
 
   componentDidUpdate(prevProps) {

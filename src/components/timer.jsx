@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import Time from '../models/time';
 import Sound from './sound';
 import Title from './../models/title';
+import Session from '../models/session';
 
 class Timer extends Component {
   state = {
     running: false,
     time: new Time(0, 0),
     timer: null,
-    playSound: false
+    playSound: false,
+    overtime: false
   };
 
   componentDidMount() {
     this.setTime(this.props.currentSessionValue, 0);
+    this.setState({ overtime: Session.getOvertime() })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -27,10 +30,14 @@ class Timer extends Component {
     );
 
   handleSecondPassed = () => {
-    const { time } = this.state;
+    const { time, overtime } = this.state;
+
+    if (overtime) return this.onOvertime();
+
     const nextTime = { ...time };
 
-    if (time.sec === 0 && time.min === 0) return this.timerFinished();
+    if (time.sec === 0 && time.min === 0)
+      return this.setState({ overtime: true }, () => this.playSound());
 
     if (time.sec === 0) {
       nextTime.min = time.min - 1;
@@ -42,8 +49,26 @@ class Timer extends Component {
     this.setTime(nextTime.min, nextTime.sec);
   };
 
+  onOvertime = () => {
+    const { time } = this.state;
+
+    const nextTime = { ...time };
+
+    if (time.sec === 59) {
+      nextTime.min = time.min + 1;
+      nextTime.sec = 0;
+      this.playSound()
+    } else {
+      nextTime.sec = time.sec + 1;
+    }
+
+    this.setTime(nextTime.min, nextTime.sec);
+  }
+
   handleTimerToggle = async () => {
-    const { running } = this.state;
+    const { running, overtime } = this.state;
+
+    if (overtime) this.setState({ overtime: false }, () => this.timerFinished());
 
     if (running) await this.stopTimer();
     else await this.startTimer();
@@ -84,7 +109,7 @@ class Timer extends Component {
     const { onTimerDone } = this.props;
 
     this.stopTimer();
-    this.playSound();
+    // this.playSound();
     onTimerDone();
   };
 
@@ -106,7 +131,7 @@ class Timer extends Component {
   };
 
   render() {
-    const { time, playSound } = this.state;
+    const { time, playSound, overtime } = this.state;
     const { isPomodoro } = this.props;
 
     let classes = 'time clickable';
@@ -117,7 +142,7 @@ class Timer extends Component {
     return (
       <React.Fragment>
         <h3 id="time" className={classes} onClick={this.handleTimerToggle}>
-          {time.toString()}
+          {overtime ? `+${time.toString()}` : time.toString()}
         </h3>
         <Sound play={playSound} />
       </React.Fragment>

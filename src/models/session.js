@@ -1,9 +1,14 @@
 export default class Session {
+  static OVERTIME = false;
   static POMODORO = 25;
   static SHORT_BREAK = 5;
   static LONG_BREAK = 10;
   static TIMER_MIN = 1;
   static TIMER_MAX = 120;
+
+  static getOvertime = () => Session.OVERTIME;
+
+  static setOvertime = (value) => Session.OVERTIME = value;
 
   static validTimers = timers =>
     !Object.keys(timers).some(
@@ -31,9 +36,6 @@ export default class Session {
 
   static getTextFromTime = time => {
     switch (time) {
-      case Session.POMODORO:
-        return 'Pomodoro';
-
       case Session.SHORT_BREAK:
         return 'Break (S)';
 
@@ -41,7 +43,7 @@ export default class Session {
         return 'Break (L)';
 
       default:
-        return '';
+        return 'Pomodoro';
     }
   };
 }
