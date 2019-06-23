@@ -16,7 +16,6 @@ class Timer extends Component {
 
   componentDidMount() {
     this.setTime(this.props.currentSessionValue, 0);
-    this.setState({ overtime: Session.getOvertime() })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,7 +36,10 @@ class Timer extends Component {
     const nextTime = { ...time };
 
     if (time.sec === 0 && time.min === 0)
-      return this.setState({ overtime: true }, () => this.playSound());
+      if (Session.getOvertime())
+        return this.setState({ overtime: true }, () => this.playSound());
+      else return this.timerFinished();
+
 
     if (time.sec === 0) {
       nextTime.min = time.min - 1;
@@ -57,7 +59,6 @@ class Timer extends Component {
     if (time.sec === 59) {
       nextTime.min = time.min + 1;
       nextTime.sec = 0;
-      this.playSound()
     } else {
       nextTime.sec = time.sec + 1;
     }
@@ -109,7 +110,7 @@ class Timer extends Component {
     const { onTimerDone } = this.props;
 
     this.stopTimer();
-    // this.playSound();
+    if (!Session.getOvertime()) this.playSound();
     onTimerDone();
   };
 
