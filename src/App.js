@@ -132,8 +132,7 @@ class App extends Component {
     } = this.state;
 
     const isSessionPomodoro = currentSession === Session.POMODORO;
-    console.log(overtime)
-    console.log(this.mapOvertimeToString(overtime))
+
     return (
       <React.Fragment>
         <AppNavbar
