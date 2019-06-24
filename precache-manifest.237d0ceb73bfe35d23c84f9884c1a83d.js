@@ -4,23 +4,23 @@ self.__precacheManifest = [
     "url": "/pomodori-story/static/js/runtime~main.32002570.js"
   },
   {
-    "revision": "03a338fc3f93e44c98fd",
-    "url": "/pomodori-story/static/js/main.03a338fc.chunk.js"
+    "revision": "9f2bf62555672292abc2",
+    "url": "/pomodori-story/static/js/main.9f2bf625.chunk.js"
   },
   {
-    "revision": "076a154687b4d8e1f0df",
-    "url": "/pomodori-story/static/js/1.076a1546.chunk.js"
+    "revision": "f533413038c1de59760c",
+    "url": "/pomodori-story/static/js/1.f5334130.chunk.js"
   },
   {
-    "revision": "03a338fc3f93e44c98fd",
+    "revision": "9f2bf62555672292abc2",
     "url": "/pomodori-story/static/css/main.70e84651.chunk.css"
   },
   {
-    "revision": "076a154687b4d8e1f0df",
+    "revision": "f533413038c1de59760c",
     "url": "/pomodori-story/static/css/1.93e53a9f.chunk.css"
   },
   {
-    "revision": "c462861cc638e11751cdbd043842e190",
+    "revision": "e180fd7b6bebd1fad26766170ef86690",
     "url": "/pomodori-story/index.html"
   }
 ];

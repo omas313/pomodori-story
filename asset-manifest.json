@@ -1,15 +1,15 @@
 {
   "main.css": "/pomodori-story/static/css/main.70e84651.chunk.css",
-  "main.js": "/pomodori-story/static/js/main.03a338fc.chunk.js",
-  "main.js.map": "/pomodori-story/static/js/main.03a338fc.chunk.js.map",
+  "main.js": "/pomodori-story/static/js/main.9f2bf625.chunk.js",
+  "main.js.map": "/pomodori-story/static/js/main.9f2bf625.chunk.js.map",
   "static/css/1.93e53a9f.chunk.css": "/pomodori-story/static/css/1.93e53a9f.chunk.css",
-  "static/js/1.076a1546.chunk.js": "/pomodori-story/static/js/1.076a1546.chunk.js",
-  "static/js/1.076a1546.chunk.js.map": "/pomodori-story/static/js/1.076a1546.chunk.js.map",
+  "static/js/1.f5334130.chunk.js": "/pomodori-story/static/js/1.f5334130.chunk.js",
+  "static/js/1.f5334130.chunk.js.map": "/pomodori-story/static/js/1.f5334130.chunk.js.map",
   "runtime~main.js": "/pomodori-story/static/js/runtime~main.32002570.js",
   "runtime~main.js.map": "/pomodori-story/static/js/runtime~main.32002570.js.map",
-  "static/css/1.93e53a9f.chunk.css.map": "/pomodori-story/static/css/1.93e53a9f.chunk.css.map",
   "static/css/main.70e84651.chunk.css.map": "/pomodori-story/static/css/main.70e84651.chunk.css.map",
+  "static/css/1.93e53a9f.chunk.css.map": "/pomodori-story/static/css/1.93e53a9f.chunk.css.map",
   "index.html": "/pomodori-story/index.html",
-  "precache-manifest.50a4e061028aaf2c6341c43f662e843a.js": "/pomodori-story/precache-manifest.50a4e061028aaf2c6341c43f662e843a.js",
+  "precache-manifest.237d0ceb73bfe35d23c84f9884c1a83d.js": "/pomodori-story/precache-manifest.237d0ceb73bfe35d23c84f9884c1a83d.js",
   "service-worker.js": "/pomodori-story/service-worker.js"
 }
