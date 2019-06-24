@@ -19,6 +19,12 @@ section {
   padding-left: 2rem !important;
 }
 
+.task.inactive {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  opacity: 0.5;
+}
+
 .task-name {
   color: #4e1a00;
   overflow: auto;
@@ -69,6 +75,11 @@ section {
 
 .action-button img {
   max-width: 20px;
+}
+
+.task-button {
+  outline: none !important;
+  border: none !important;
 }
 
 .time {
@@ -144,6 +155,12 @@ section {
 @media(max-width: 575.98px) {
   .time {
     font-size: 3rem !important;
+  }
+  .task.active {
+    padding: 0.2rem !important;
+  }
+  .task-button {
+    padding: 0.2rem !important;
   }
 }
 

@@ -11,7 +11,7 @@ class TaskButtons extends Component {
       <React.Fragment>
         <Button
           id="task-edit-button"
-          className="action-button"
+          className="action-button task-button"
           size="sm"
           color="primary"
           outline
@@ -21,7 +21,7 @@ class TaskButtons extends Component {
         </Button>
         <Button
           id="task-delete-button"
-          className="action-button"
+          className="action-button task-button"
           size="sm"
           color="primary"
           outline

@@ -33,7 +33,7 @@ class TaskComponent extends Component {
     const { isEditing, newName } = this.state;
     const { task, isActive, onSetActive, onDelete } = this.props;
 
-    const taskClasses = 'task' + (isActive ? ' active' : '');
+    const taskClasses = 'task' + (isActive ? ' active' : ' inactive');
 
     return (
       <ListGroupItem className={taskClasses}>
@@ -49,24 +49,27 @@ class TaskComponent extends Component {
                 onSubmit={this.handleEditSubmit}
               />
             ) : (
-              task.name
-            )}
+                task.name
+              )}
           </Col>
           <Col md="2" xs="1">
             <Badge color={this.getBadgeColor()} pill>
               {task.pomodori}
             </Badge>
           </Col>
-          <Col md="3" xs="3" className="text-right action-buttons">
-            <TaskButtons
-              task={task}
-              newName={newName}
-              isEditing={isEditing}
-              onSubmit={this.handleEditSubmit}
-              onEditClick={this.handleEditClick}
-              onDelete={onDelete}
-            />
-          </Col>
+          {isActive && (
+            <Col md="3" xs="3" className="text-right action-buttons">
+              <TaskButtons
+                task={task}
+                newName={newName}
+                isEditing={isEditing}
+                onSubmit={this.handleEditSubmit}
+                onEditClick={this.handleEditClick}
+                onDelete={onDelete}
+              />
+            </Col>
+          )
+          }
         </Row>
       </ListGroupItem>
     );
