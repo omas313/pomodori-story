@@ -4,6 +4,19 @@ class Time {
     this.sec = sec;
   }
 
+  get totalSeconds() {
+    return this.min * 60 + this.sec;
+  }
+
+  static secToMinSecString(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+
+    const m = mins < 10 ? `0${mins}` : mins;
+    const s = secs < 10 ? `0${secs}` : secs;
+    return `${m}:${s}`;
+  }
+
   toString() {
     const m = this.min < 10 ? `0${this.min}` : this.min;
     const s = this.sec < 10 ? `0${this.sec}` : this.sec;

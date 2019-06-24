@@ -69,7 +69,10 @@ class Timer extends Component {
   handleTimerToggle = async () => {
     const { running, overtime } = this.state;
 
-    if (overtime) this.setState({ overtime: false }, () => this.timerFinished());
+    if (overtime) this.setState({ overtime: false }, () => {
+      this.props.onOvertimeDone(this.state.time.totalSeconds);
+      this.timerFinished();
+    });
 
     if (running) await this.stopTimer();
     else await this.startTimer();

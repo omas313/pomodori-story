@@ -13,6 +13,7 @@ import Session from './models/session';
 import './App.css';
 import settingsService from './services/settingsService';
 import Title from './models/title';
+import Time from './models/time';
 
 class App extends Component {
   state = {
@@ -23,7 +24,11 @@ class App extends Component {
     isWorking: false,
     infoModalOpen: false,
     settingsModalOpen: false,
-    initCompleted: false
+    initCompleted: false,
+    overtime: {
+      pomodori: 0,
+      breaks: 0
+    }
   };
 
   async componentDidMount() {
@@ -98,6 +103,21 @@ class App extends Component {
   handleSettingsModalToggle = () =>
     this.setState({ settingsModalOpen: !this.state.settingsModalOpen });
 
+  handleOvertime = sec => {
+    const overtime = { ...this.state.overtime };
+    const { currentSession } = this.state;
+
+    if (currentSession === Session.POMODORO) overtime.pomodori += sec;
+    else overtime.breaks += sec;
+
+    this.setState({ overtime });
+  }
+
+  mapOvertimeToString = ({ pomodori, breaks }) => ({
+    pomodori: Time.secToMinSecString(pomodori),
+    breaks: Time.secToMinSecString(breaks)
+  });
+
   render() {
     const {
       pomodoroCount,
@@ -107,11 +127,13 @@ class App extends Component {
       taskCount,
       infoModalOpen,
       settingsModalOpen,
-      initCompleted
+      initCompleted,
+      overtime
     } = this.state;
 
     const isSessionPomodoro = currentSession === Session.POMODORO;
-
+    console.log(overtime)
+    console.log(this.mapOvertimeToString(overtime))
     return (
       <React.Fragment>
         <AppNavbar
@@ -153,8 +175,14 @@ class App extends Component {
                 onTimerStart={this.handleTimerStart}
                 onTimerStop={this.handleTimerStop}
                 onTimerDone={this.handleSessionEnd}
+                onOvertimeDone={this.handleOvertime}
               />
-              <Summary taskCount={taskCount} pomodoroCount={pomodoroCount} />
+              <Summary
+                taskCount={taskCount}
+                pomodoroCount={pomodoroCount}
+                overtime={this.mapOvertimeToString(overtime)}
+                showOvertime={Session.OVERTIME}
+              />
             </RightToTopCol>
           </Row>
         </Container>
