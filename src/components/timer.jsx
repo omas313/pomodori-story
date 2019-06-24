@@ -154,13 +154,14 @@ class Timer extends Component {
   }
 }
 
-Time.propTypes = {
+Timer.propTypes = {
   currentSessionValue: PropTypes.number.isRequired,
   isPomodoro: PropTypes.bool.isRequired,
   startOnChange: PropTypes.bool.isRequired,
   onTimerStart: PropTypes.func.isRequired,
   onTimerStop: PropTypes.func.isRequired,
-  onTimerDone: PropTypes.func.isRequired
+  onTimerDone: PropTypes.func.isRequired,
+  onOvertimeDone: PropTypes.func.isRequired
 };
 
 export default Timer;
