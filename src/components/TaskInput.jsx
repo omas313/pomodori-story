@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+import { Component } from 'react'; import PropTypes from 'prop-types';
 import { Input, FormGroup } from 'reactstrap';
+import { ThemeContext } from '../context/themeContext';
 
 class TaskInput extends Component {
   state = {
@@ -38,15 +40,37 @@ class TaskInput extends Component {
 
     return (
       <FormGroup>
-        <Input
-          name="task-input"
-          placeholder={placeholder}
-          value={text}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          onBlur={() => this.handleSubmit(text)}
-          autoFocus
-        />
+        <ThemeContext.Consumer>
+          {({ theme, _ }) => {
+            const styles = css`
+              background-color: ${theme.controlBackground};
+              color: ${theme.foreground};
+              border-color: ${theme.primary};
+              
+              &:focus {
+                color: ${theme.foreground};
+                background-color: ${theme.controlBackgroundFocus};
+                border-color: ${theme.primary};
+                outline: none;
+                box-shadow: none;
+              }
+            `;
+
+            return (
+              <Input
+                css={styles}
+                name="task-input"
+                placeholder={placeholder}
+                value={text}
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}
+                onBlur={() => this.handleSubmit(text)}
+                autoFocus
+              />
+            );
+          }}
+        </ThemeContext.Consumer>
+
       </FormGroup>
     );
   }

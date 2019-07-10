@@ -5,20 +5,22 @@ import { taskType } from './../types/index';
 
 class TaskButtons extends Component {
   renderActionButtons() {
-    const { task, onDelete, onEditClick } = this.props;
+    const { task, onDelete, hideEditButton, onEditClick } = this.props;
 
     return (
       <React.Fragment>
-        <Button
-          id="task-edit-button"
-          className="action-button task-button"
-          size="sm"
-          color="primary"
-          outline
-          onClick={onEditClick}
-        >
-          <img src="./img/edit.svg" alt="Edit" />
-        </Button>
+        {!hideEditButton && (
+          <Button
+            id="task-edit-button"
+            className="action-button task-button"
+            size="sm"
+            color="primary"
+            outline
+            onClick={onEditClick}
+          >
+            <img src="./img/edit.svg" alt="Edit" />
+          </Button>
+        )}
         <Button
           id="task-delete-button"
           className="action-button task-button"
@@ -61,6 +63,7 @@ class TaskButtons extends Component {
 TaskButtons.propTypes = {
   task: taskType,
   newName: PropTypes.string.isRequired,
+  hideEditButton: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,

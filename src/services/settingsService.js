@@ -4,6 +4,7 @@ const timersKeys = {
   longBreak: 'lb'
 };
 const overtimeKey = 'overtime';
+const darkModeKey = 'darkMode';
 
 function getTimers() {
   const values = Object.keys(timersKeys).map(k =>
@@ -33,9 +34,22 @@ function setOvertime(value) {
   localStorage.setItem(overtimeKey, value.toString() === "true");
 }
 
+function getDarkMode() {
+  const value = localStorage.getItem(darkModeKey);
+  if (value === null) return false;
+  return value.toString() === "true";
+}
+
+function setDarkMode(value) {
+  if (value === null) value = false;
+  localStorage.setItem(darkModeKey, value.toString() === "true");
+}
+
 export default {
   getTimers,
   saveTimers,
   getOvertime,
-  setOvertime
+  setOvertime,
+  getDarkMode,
+  setDarkMode
 };

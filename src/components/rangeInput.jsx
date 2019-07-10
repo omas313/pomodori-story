@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Input, FormGroup, Label } from 'reactstrap';
+import { ThemeContext } from '../context/themeContext';
 
 class RangeInput extends Component {
   state = {
@@ -31,14 +34,34 @@ class RangeInput extends Component {
             <Label for={name}>{label}</Label>
           </Col>
           <Col>
-            <Input
-              type="number"
-              min={min}
-              max={max}
-              name={name}
-              value={value}
-              onChange={this.handleChange}
-            />
+            <ThemeContext.Consumer>
+              {({ theme, toggleTheme }) => {
+                const styles = css`
+                  border: 1px solid ${theme.primary} !important;
+                  font-size: 1.1rem !important;
+                  transition: background-color 0.3s, border-color 0.3s;
+                  background-color: ${theme.controlBackground} !important;
+                  color: ${theme.controlForeground}  !important;
+                  
+                  &:focus {
+                    background-color: ${theme.controlBackgroundFocus} !important;
+                    color: ${theme.foreground}  !important;
+                    box-shadow: none !important;
+                  }
+                `
+                return (
+                  <Input
+                    css={styles}
+                    type="number"
+                    min={min}
+                    max={max}
+                    name={name}
+                    value={value}
+                    onChange={this.handleChange}
+                  />
+                );
+              }}
+            </ThemeContext.Consumer>
           </Col>
         </Row>
       </FormGroup>

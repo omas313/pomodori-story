@@ -10,26 +10,57 @@ import Summary from './components/summary';
 import Tasks from './components/tasks';
 import Timer from './components/timer';
 import Session from './models/session';
-import './App.css';
 import settingsService from './services/settingsService';
 import Title from './models/title';
 import Time from './models/time';
+import { ThemeContext, themes } from './context/themeContext';
+import './App.css';
+
 
 class App extends Component {
-  state = {
-    currentSession: 0,
-    taskCount: 0,
-    pomodoroCount: 0,
-    pendingPomodoro: false,
-    isWorking: false,
-    infoModalOpen: false,
-    settingsModalOpen: false,
-    initCompleted: false,
-    overtime: {
-      pomodori: 0,
-      breaks: 0
-    }
-  };
+  constructor(props) {
+    super(props);
+
+    this.toggleTheme = () => {
+      this.setState(state => ({
+        theme:
+          state.theme === themes.dark
+            ? themes.light
+            : themes.dark,
+      }));
+    };
+
+    this.state = {
+      currentSession: 0,
+      taskCount: 0,
+      pomodoroCount: 0,
+      pendingPomodoro: false,
+      isWorking: false,
+      infoModalOpen: false,
+      settingsModalOpen: false,
+      initCompleted: false,
+      overtime: {
+        pomodori: 0,
+        breaks: 0
+      },
+      theme: themes.light,
+      toggleTheme: this.toggleTheme
+    };
+
+    this.styles = {
+      width: '100%',
+      height: '100%',
+      minHeight: '100%',
+      margin: 0,
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      overflow: 'auto'
+    };
+  }
+
 
   async componentDidMount() {
     await this.initSettings();
@@ -37,10 +68,10 @@ class App extends Component {
 
   async initSettings() {
     this.initTimers();
-    this.initOtherSettings();
+    await this.initOtherSettings();
     this.initTitle();
     await this.setState({ currentSession: Session.POMODORO },
-      () => this.setState({ initCompleted: true }))
+      () => this.setState({ initCompleted: true }));
   }
 
   initTimers() {
@@ -48,9 +79,12 @@ class App extends Component {
     Session.setTimers(timers);
   }
 
-  initOtherSettings() {
+  async initOtherSettings() {
     const overtime = settingsService.getOvertime();
     Session.setOvertime(overtime);
+    const darkMode = settingsService.getDarkMode();
+    Session.setDarkMode(darkMode);
+    await this.setState({ theme: darkMode ? themes.dark : themes.light })
   }
 
   initTitle() {
@@ -119,6 +153,14 @@ class App extends Component {
   });
 
   render() {
+    return (
+      <ThemeContext.Provider value={this.state}>
+        {this.renderContent()}
+      </ThemeContext.Provider>
+    );
+  }
+
+  renderContent() {
     const {
       pomodoroCount,
       currentSession,
@@ -128,13 +170,19 @@ class App extends Component {
       infoModalOpen,
       settingsModalOpen,
       initCompleted,
-      overtime
+      overtime,
+      theme
     } = this.state;
 
     const isSessionPomodoro = currentSession === Session.POMODORO;
+    const styles = {
+      ...this.styles,
+      background: theme.background,
+      color: theme.foreground
+    };
 
     return (
-      <React.Fragment>
+      <div style={styles}>
         <AppNavbar
           title="Pomodori Story"
           isBreakTime={!isSessionPomodoro}
@@ -185,7 +233,7 @@ class App extends Component {
             </RightToTopCol>
           </Row>
         </Container>
-      </React.Fragment>
+      </div>
     );
   }
 }

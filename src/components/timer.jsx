@@ -1,9 +1,12 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Time from '../models/time';
 import Sound from './sound';
 import Title from './../models/title';
 import Session from '../models/session';
+import { ThemeContext } from '../context/themeContext';
 
 class Timer extends Component {
   state = {
@@ -138,18 +141,43 @@ class Timer extends Component {
     const { time, playSound, overtime } = this.state;
     const { isPomodoro } = this.props;
 
-    let classes = 'time clickable';
-    const blink = this.isPaused() ? ' blink' : '',
-      color = isPomodoro ? ' working' : ' break';
-    classes += blink + color;
-
     return (
-      <React.Fragment>
-        <h3 id="time" className={classes} onClick={this.handleTimerToggle}>
-          {overtime ? `+${time.toString()}` : time.toString()}
-        </h3>
-        <Sound play={playSound} />
-      </React.Fragment>
+      <ThemeContext.Consumer>
+        {({ theme, toggleTheme }) => {
+          const baseStyles = css`
+            margin: 1rem 1rem 2rem 1rem;
+            text-align: center;
+            font-size: 3rem;
+            transition: color 1s;
+            cursor: pointer;
+            color: ${isPomodoro ? theme.primary : theme.secondary};
+
+            @media (max-width: 575.98px) {
+              font-size: 3rem !important;
+            }
+            @media(max-width: 991.98px) {
+              font-size: 4rem;
+            }
+            @media (min-width: 1200px) {
+              font-size: 4.5rem;
+            }
+          `;
+          const blink = css`
+            animation: blink 2s ease-in-out 0s infinite;
+            -webkit-animation: blink 2s ease-in-out 0s infinite;
+          `;
+          const styles = [this.isPaused() ? blink : null, baseStyles];
+
+          return (
+            <React.Fragment>
+              <h3 id="time" css={styles} onClick={this.handleTimerToggle}>
+                {overtime ? `+${time.toString()}` : time.toString()}
+              </h3>
+              <Sound play={playSound} />
+            </React.Fragment>
+          );
+        }}
+      </ThemeContext.Consumer>
     );
   }
 }

@@ -8,6 +8,14 @@ class Time {
     return this.min * 60 + this.sec;
   }
 
+  incSeconds(s) {
+    this.sec += s;
+    if (this.sec >= 60) {
+      this.min += Math.floor(this.sec / 60);
+      this.sec = this.sec % 60;
+    }
+  }
+
   static secToMinSecString(seconds) {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;

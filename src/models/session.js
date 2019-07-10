@@ -1,5 +1,6 @@
 export default class Session {
   static OVERTIME = false;
+  static DARK_MODE = false;
   static POMODORO = 25;
   static SHORT_BREAK = 5;
   static LONG_BREAK = 10;
@@ -7,8 +8,10 @@ export default class Session {
   static TIMER_MAX = 120;
 
   static getOvertime = () => Session.OVERTIME;
-
   static setOvertime = (value) => Session.OVERTIME = value;
+
+  static getDarkMode = () => Session.DARK_MODE;
+  static setDarkMode = (value) => Session.DARK_MODE = value;
 
   static validTimers = timers =>
     !Object.keys(timers).some(
