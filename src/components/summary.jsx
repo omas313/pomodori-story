@@ -9,8 +9,8 @@ const Summary = ({ taskCount, pomodoroCount, overtime, showOvertime }) => (
   <ThemeContext.Consumer>
     {({ theme, _ }) => {
       const styles = css`
-      border-top: 1px solid ${theme.primary};
-      border-bottom: 1px solid ${theme.primary};
+      border-top: 1px solid ${theme.foreground};
+      border-bottom: 1px solid ${theme.foreground};
       padding: 0.6rem;
       margin: 1rem 0 !important;
     `;

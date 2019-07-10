@@ -43,12 +43,18 @@ class TaskInput extends Component {
         <ThemeContext.Consumer>
           {({ theme, _ }) => {
             const styles = css`
+              font-size: 1.1rem;
               background-color: ${theme.controlBackground};
               color: ${theme.foreground};
-              border-color: ${theme.primary};
+              border-color: ${theme.background};
+              border-top: none;
+              border-right: none;
+              border-left: none;
+              opacity: 0.8;
               
               &:focus {
                 color: ${theme.foreground};
+                opacity: 1;
                 background-color: ${theme.controlBackgroundFocus};
                 border-color: ${theme.primary};
                 outline: none;

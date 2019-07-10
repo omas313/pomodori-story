@@ -56,7 +56,8 @@ class TaskComponent extends Component {
 
           const styles = css`
             color: ${theme.foreground} !important;
-            border-radius: 10px !important;
+            border-right: none;
+            border-left: none;
             transition: background-color 0.3s, border-color 0.3s, display 0.3s;
             animation: fadeIn 0.3s ease-in 0s 1;
             -webkit-animation: fadeIn 0.3s ease-in 0s 1;
@@ -67,6 +68,8 @@ class TaskComponent extends Component {
               border-bottom: 2px solid ${theme.primary} !important;
               opacity: 1 !important;
             ` : `
+              border-right: none;
+              border-left: none;
               background-color: ${theme.controlBackground} !important;
               border-color: ${theme.primaryDarker} !important;
               margin-left: 3rem;
@@ -98,7 +101,7 @@ class TaskComponent extends Component {
               border-color: ${theme.primaryDarker} !important;
             }
             & .btn-outline-primary:hover, & .btn-outline-primary:active {
-              background-color: ${theme.foreground} !important;
+              background-color: ${theme.light} !important;
             }
           `;
 
