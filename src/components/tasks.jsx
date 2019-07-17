@@ -15,11 +15,14 @@ class Tasks extends Component {
     this.initTasks();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     if (prevState.tasks !== this.state.tasks) this.onTasksChanged();
 
     if (!prevProps.pendingPomodoro && this.props.pendingPomodoro)
       this.addPomodoroToCurrentTask();
+
+    if (!prevProps.resetTasks && this.props.resetTasks)
+      await this.resetAllTasks();
   }
 
   initTasks() {
@@ -64,6 +67,12 @@ class Tasks extends Component {
     onPomodoroAssigned();
   }
 
+  async resetAllTasks() {
+    while (this.state.tasks.length > 1)
+      await this.handleDeleteTask(this.state.tasks[this.state.tasks.length - 1]);
+    this.props.onResetDone();
+  }
+
   handleSetActiveTask = task => {
     this.setState({ currentTask: task });
   };
@@ -82,12 +91,12 @@ class Tasks extends Component {
     this.setState({ tasks });
   };
 
-  handleDeleteTask = task => {
+  handleDeleteTask = async task => {
     const { tasks: oldTasks, currentTask } = this.state;
 
     if (oldTasks.length <= 1) {
       const newTask = Task.getDefaultTask();
-      return this.setState({ tasks: [newTask], currentTask: newTask });
+      return await this.setState({ tasks: [newTask], currentTask: newTask });
     }
 
     let tasks = [...oldTasks];
@@ -99,7 +108,7 @@ class Tasks extends Component {
     if (!currentTask || task._id === currentTask._id || tasks.length === 1)
       updates.currentTask = tasks[0];
 
-    this.setState(updates);
+    await this.setState(updates);
   };
 
   handleEditTask = (id, name) => {
@@ -138,6 +147,8 @@ class Tasks extends Component {
 
 Tasks.propTypes = {
   pendingPomodoro: PropTypes.bool.isRequired,
+  resetTasks: PropTypes.bool.isRequired,
+  onResetDone: PropTypes.func.isRequired,
   onTasksChanged: PropTypes.func.isRequired,
   onPomodoroAssigned: PropTypes.func.isRequired
 };

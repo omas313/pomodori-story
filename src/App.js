@@ -39,11 +39,12 @@ class App extends Component {
       infoModalOpen: false,
       settingsModalOpen: false,
       initCompleted: false,
+      reset: false,
       overtime: {
         pomodori: 0,
         breaks: 0
       },
-      theme: themes.light,
+      theme: themes.dark,
       toggleTheme: this.toggleTheme
     };
 
@@ -127,6 +128,10 @@ class App extends Component {
   handleTaskCountChange = (taskCount, pomodoroCount) =>
     this.setState({ taskCount, pomodoroCount });
 
+  handleReset = () => this.setState({ reset: true });
+
+  handleResetDone = () => this.setState({ reset: false });
+
   handlePomodoroAssigned = () => {
     if (this.state.pendingPomodoro) this.setState({ pendingPomodoro: false });
   };
@@ -171,6 +176,7 @@ class App extends Component {
       settingsModalOpen,
       initCompleted,
       overtime,
+      reset,
       theme
     } = this.state;
 
@@ -207,6 +213,8 @@ class App extends Component {
                 pendingPomodoro={pendingPomodoro}
                 onTasksChanged={this.handleTaskCountChange}
                 onPomodoroAssigned={this.handlePomodoroAssigned}
+                resetTasks={reset}
+                onResetDone={this.handleResetDone}
                 DEBUG_se_hack={this.handleSessionEnd}
               />
             </LeftToBottomCol>
@@ -229,6 +237,7 @@ class App extends Component {
                 pomodoroCount={pomodoroCount}
                 overtime={this.mapOvertimeToString(overtime)}
                 showOvertime={Session.OVERTIME}
+                onResetClicked={this.handleReset}
               />
             </RightToTopCol>
           </Row>
