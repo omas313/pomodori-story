@@ -68,7 +68,7 @@ class Tasks extends Component {
   }
 
   async resetAllTasks() {
-    while (this.state.tasks.length > 1)
+    while (this.state.tasks.length !== 1 || !Task.isDefaultTask(this.state.tasks[0]))
       await this.handleDeleteTask(this.state.tasks[this.state.tasks.length - 1]);
     this.props.onResetDone();
   }
