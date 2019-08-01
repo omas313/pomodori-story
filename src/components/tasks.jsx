@@ -43,7 +43,8 @@ class Tasks extends Component {
     const { tasks } = this.state;
     const { onTasksChanged } = this.props;
 
-    onTasksChanged(tasks.length, this.getTotalPomodori());
+    const isDirty = tasks.length !== 1 || !Task.isDefaultTask(tasks[0]);
+    onTasksChanged(tasks.length, this.getTotalPomodori(), isDirty);
     taskService.save(tasks);
   }
 
@@ -88,9 +89,13 @@ class Tasks extends Component {
     );
     tasks.push(task);
 
-    if (tasks.length == 2 && Task.isDefaultTask(tasks[0])) tasks.splice(0, 1);
+    const updates = { tasks };
+    if (tasks.length == 2 && Task.isDefaultTask(tasks[0])) {
+      tasks.splice(0, 1);
+      updates.currentTask = tasks[0];
+    }
 
-    this.setState({ tasks });
+    this.setState(updates);
   };
 
   handleDeleteTask = async task => {

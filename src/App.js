@@ -40,6 +40,7 @@ class App extends Component {
       settingsModalOpen: false,
       initCompleted: false,
       reset: false,
+      showReset: false,
       overtime: {
         pomodori: 0,
         breaks: 0
@@ -125,8 +126,8 @@ class App extends Component {
 
   handleTimerStop = () => this.setState({ isWorking: false });
 
-  handleTaskCountChange = (taskCount, pomodoroCount) =>
-    this.setState({ taskCount, pomodoroCount });
+  handleTasksChange = (taskCount, pomodoroCount, showReset) =>
+    this.setState({ taskCount, pomodoroCount, showReset });
 
   handleReset = () => this.setState({ reset: true });
 
@@ -177,6 +178,7 @@ class App extends Component {
       initCompleted,
       overtime,
       reset,
+      showReset,
       theme
     } = this.state;
 
@@ -211,7 +213,7 @@ class App extends Component {
             <LeftToBottomCol>
               <Tasks
                 pendingPomodoro={pendingPomodoro}
-                onTasksChanged={this.handleTaskCountChange}
+                onTasksChanged={this.handleTasksChange}
                 onPomodoroAssigned={this.handlePomodoroAssigned}
                 resetTasks={reset}
                 onResetDone={this.handleResetDone}
@@ -236,6 +238,7 @@ class App extends Component {
                 taskCount={taskCount}
                 pomodoroCount={pomodoroCount}
                 overtime={this.mapOvertimeToString(overtime)}
+                showReset={showReset}
                 showOvertime={Session.OVERTIME}
                 onResetClicked={this.handleReset}
               />

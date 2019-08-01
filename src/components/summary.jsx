@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 import { ThemeContext } from '../context/themeContext';
 
-const Summary = ({ taskCount, pomodoroCount, overtime, showOvertime, onResetClicked }) => (
+const Summary = ({ taskCount, pomodoroCount, overtime, showReset, showOvertime, onResetClicked }) => (
   <ThemeContext.Consumer>
     {({ theme, _ }) => {
       const styles = css`
@@ -30,7 +30,7 @@ const Summary = ({ taskCount, pomodoroCount, overtime, showOvertime, onResetClic
               <p className="text-bold">Tasks</p>
               <p>{taskCount}</p>
             </Col>
-            {taskCount > 1 && (
+            {showReset && (
               <Col sm="3" className="text-center">
                 <p className="reset" onClick={onResetClicked}>RESET</p>
               </Col>
@@ -63,6 +63,7 @@ Summary.propTypes = {
   taskCount: PropTypes.number.isRequired,
   pomodoroCount: PropTypes.number.isRequired,
   overtime: PropTypes.object.isRequired,
+  showReset: PropTypes.bool.isRequired,
   showOvertime: PropTypes.bool.isRequired,
   onResetClicked: PropTypes.func.isRequired
 };
