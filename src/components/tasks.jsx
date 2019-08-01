@@ -88,6 +88,8 @@ class Tasks extends Component {
     );
     tasks.push(task);
 
+    if (tasks.length == 2 && Task.isDefaultTask(tasks[0])) tasks.splice(0, 1);
+
     this.setState({ tasks });
   };
 
